@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import orderRouter from './orderRouter';
+import flightRouter from './flightRouter';
 import cityRouter from './cityRouter';
 
 const router = Router();
 
-router.use('/order', orderRouter);
+router.use('/flight', flightRouter);
 router.use('/city', cityRouter);
 
 export default router;

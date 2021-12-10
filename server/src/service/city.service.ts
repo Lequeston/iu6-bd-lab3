@@ -13,6 +13,7 @@ class CityService implements CityServiceInterface {
   constructor(dbClient: Client) {
     this.dbClient = dbClient;
   }
+
   async getAll() {
     const query = await this.dbClient.query('SELECT id, title, country FROM cities');
     const res: City[] = query.rows.map((field) => ({
