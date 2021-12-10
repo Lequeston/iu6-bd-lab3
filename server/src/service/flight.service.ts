@@ -2,15 +2,20 @@ import moment from 'moment';
 import { Client } from 'pg';
 
 import client from '../configs/bd';
+import { flightsDecorationArray, flightsDecorationLength } from '../querys/flight.query';
 import { FlightDecoration } from '../types/flights';
 
 interface FlightServiceInterface {
   decoration: (
     startPoint: string | undefined,
     endPoint: string | undefined,
-    directDate: moment.Moment | undefined,
-    reverseDate: moment.Moment | undefined
-  ) => Promise<FlightDecoration[]>
+    date: moment.Moment | undefined,
+    offset: number,
+    limit: number
+  ) => Promise<{
+    array: FlightDecoration[],
+    length: number
+  }>
 }
 
 class FlightService implements FlightServiceInterface {
@@ -23,52 +28,21 @@ class FlightService implements FlightServiceInterface {
   async decoration(
     startPoint: string | undefined,
     endPoint: string | undefined,
-    directDate: moment.Moment | undefined,
-    reverseDate: moment.Moment | undefined
+    date: moment.Moment | undefined,
+    offset: number,
+    limit: number
   ) {
     try {
-      await client.query('BEGIN');
-      const query = await this.dbClient.query(`
-      SELECT
-        flights.id flightId,
-        flights.airArrivalData,
-        flights.airDepartureData,
-        flights.flightCode,
-        routes.airArrivalId,
-        routes.airDepartureId,
-        planes.planeTypeId,
-        airlines.title airlineTitle,
-        arrivalAirports.title arrivalAirportTitle,
-        arrivalAirports.cityTitle arrivalCityTitle,
-        departureAirports.title departureAirportTitle,
-        departureAirports.cityTitle departureCityTitle
-      FROM
-        flights,
-        planes,
-        routes,
-        airlines,
-        (SELECT airports.id, airports.title, cities.title cityTitle
-          FROM airports, cities
-          ${startPoint ? `WHERE cityId = ${startPoint} AND cities.id = ${startPoint}` : ''}
-        ) arrivalAirports,
-        (SELECT airports.id, airports.title, cities.title cityTitle
-          FROM airports, cities
-          ${endPoint ? `WHERE cityId = ${endPoint} AND cities.id = ${endPoint}` : ''}
-        ) departureAirports
-      WHERE
-        routes.airArrivalId = arrivalAirports.id AND routes.airDepartureId = departureAirports.id
-        AND routes.id = flights.routeId AND planes.id = flights.planeId AND airlines.id = flights.airlineId
-      `);
+      await this.dbClient.query('BEGIN');
+      const queryArray = await this.dbClient.query(flightsDecorationArray(
+        startPoint,
+        endPoint,
+        date && date.toISOString(),
+        offset,
+        limit
+      ));
 
-      const getTitlePlaneType = async (id: number): Promise<string> => {
-        const query = await this.dbClient.query({
-          text: 'SELECT title FROM planetypes WHERE id = $1',
-          values: [id]
-        });
-        return query.rows[0]['title'];
-      }
-
-      const res: FlightDecoration[] = await Promise.all(query.rows.map(async (row): Promise<FlightDecoration> => ({
+      const res: FlightDecoration[] = await Promise.all(queryArray.rows.map(async (row): Promise<FlightDecoration> => ({
         id: row['flightid'],
         airArrivalData: moment(row['airarrivaldata']).toISOString(),
         airDepartureData: moment(row['airdeparturedata']).toISOString(),
@@ -84,12 +58,21 @@ class FlightService implements FlightServiceInterface {
           }
         },
         airlineTitle: row['airlineTitle'],
-        planeType: await getTitlePlaneType(row['planetypeid'])
+        planeType: row['planetype']
       })));
-      await client.query('COMMIT');
-      return res;
+
+      const queryLength = await this.dbClient.query(flightsDecorationLength(
+        startPoint,
+        endPoint,
+        date && date.toISOString()
+      ));
+      const length: number = parseInt(queryLength.rows[0]['count'], 10);
+      await this.dbClient.query('COMMIT');
+      return {
+        array: res,
+        length
+      }
     } catch(e) {
-      await client.query('ROLLBACK');
       console.error(e);
     }
   }
