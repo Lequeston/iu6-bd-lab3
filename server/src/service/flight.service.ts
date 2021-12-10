@@ -37,32 +37,34 @@ class FlightService implements FlightServiceInterface {
         routes.airArrivalId,
         routes.airDepartureId,
         planes.planeTypeId,
-        airlines.title airlineTitle
+        airlines.title airlineTitle,
+        arrivalAirports.title arrivalAirportTitle,
+        arrivalAirports.cityTitle arrivalCityTitle,
+        departureAirports.title departureAirportTitle,
+        departureAirports.cityTitle departureCityTitle
       FROM
         flights,
         planes,
         routes,
-        airlines
+        airlines,
+        (SELECT airports.id, airports.title, cities.title cityTitle
+          FROM airports, cities
+          ${startPoint ? `WHERE cityId = ${startPoint} AND cities.id = ${startPoint}` : ''}
+        ) arrivalAirports,
+        (SELECT airports.id, airports.title, cities.title cityTitle
+          FROM airports, cities
+          ${endPoint ? `WHERE cityId = ${endPoint} AND cities.id = ${endPoint}` : ''}
+        ) departureAirports
       WHERE
-        ${startPoint ? `routes.airArrivalId = ${startPoint}` : ''} ${startPoint ? 'AND' : ''} ${endPoint ? `routes.airDepartureId = ${endPoint}` : ''}
-        ${endPoint ? 'AND' : ''} routes.id = flights.routeId AND planes.id = flights.planeId AND airlines.id = flights.airlineId
+        routes.airArrivalId = arrivalAirports.id AND routes.airDepartureId = departureAirports.id
+        AND routes.id = flights.routeId AND planes.id = flights.planeId AND airlines.id = flights.airlineId
       `);
-
-      const getTitleAirId = async (id: number): Promise<string> => {
-        const query = await this.dbClient.query({
-          text: 'SELECT title FROM airports WHERE id = $1',
-          values: [id]
-        })
-        console.log(id);
-        console.log(query.rows[0]);
-        return query.rows[0]['title'];
-      }
 
       const getTitlePlaneType = async (id: number): Promise<string> => {
         const query = await this.dbClient.query({
           text: 'SELECT title FROM planetypes WHERE id = $1',
           values: [id]
-        })
+        });
         return query.rows[0]['title'];
       }
 
@@ -72,8 +74,14 @@ class FlightService implements FlightServiceInterface {
         airDepartureData: moment(row['airdeparturedata']).toISOString(),
         flightCode: row['flightcode'],
         route: {
-          airArrival: await getTitleAirId(row['airarrivalid']),
-          airDeparture: await getTitleAirId(row['airdepartureid'])
+          airArrival: {
+            title: row['arrivalairporttitle'],
+            city: row['arrivalcitytitle']
+          },
+          airDeparture: {
+            title: row['departureairporttitle'],
+            city: row['departurecitytitle']
+          }
         },
         airlineTitle: row['airlineTitle'],
         planeType: await getTitlePlaneType(row['planetypeid'])

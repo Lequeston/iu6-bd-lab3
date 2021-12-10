@@ -4,8 +4,14 @@ export type FlightDecoration = {
   airDepartureData: string,
   flightCode: string,
   route: {
-    airArrival: string,
-    airDeparture: string
+    airArrival: {
+      title: string,
+      city: string
+    },
+    airDeparture: {
+      title: string,
+      city: string
+    }
   },
   planeType: string,
   airlineTitle: string
