@@ -2,9 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import router from './router';
-
 dotenv.config();
+
+import router from './router';
+import client from './configs/bd';
 
 const PORT: number = parseInt(process.env.PORT, 10) || 5000;
 
@@ -15,6 +16,7 @@ app.use('/api', router);
 
 const start = async (): Promise<void> => {
   try {
+    await client.connect();
     await app.listen(PORT, () => {
       console.log(`Server listen at http://localhost:${PORT}`);
     })
