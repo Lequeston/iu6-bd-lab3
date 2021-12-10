@@ -1,8 +1,23 @@
 import React from 'react';
+import { Layout, Menu, Breadcrumb } from 'antd';
+
+import './Main.css'
+
+const { Header, Content, Footer } = Layout;
 
 const Main = () => {
   return (
-    <h1>Main Page</h1>
+    <Layout className="layout">
+      <Header>
+        <div className="logo" />
+        <Menu theme="dark" mode="horizontal">
+        </Menu>
+      </Header>
+      <Content style={{ padding: '0 50px' }}>
+        <div className="site-layout-content">Content</div>
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+    </Layout>
   );
 }
 
