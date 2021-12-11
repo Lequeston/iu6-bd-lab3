@@ -6,9 +6,26 @@ import './FlightList.css';
 const { Text } = Typography;
 
 const FlightList = ({ data }) => {
+  const printTime = (hour, minute) => {
+    if (minute === '0')
+      return `${hour} ч.`;
+    return `${hour} ч. ${minute} мин.`;
+  };
+
+  const convertHours = (hours) => {
+    let [hour, minute] = hours.toFixed(2).toString().split('.');
+    if (minute !== 0)
+      minute = (parseInt(minute) * 60 / 100).toString();
+    return [hour, minute];
+  };
+
+  const calcDifference = (early, late) => {
+    return late.diff(early, 'hour', true);
+  };
+
   return (
     <List
-    itemLayout="vertical"
+    itemLayout="vertical"undefined
     pagination={{
       pageSize: 15,
     }}
@@ -29,15 +46,15 @@ const FlightList = ({ data }) => {
           <Col flex="auto">
             <Row>
               <Col span={6}>{`${item.departure.format('HH:MM')} - ${item.arrival.format('HH:MM')}`}</Col>
-              <Col span={6}>{(item.arrival.subtract(item.departure)).format('HH:MM')}</Col>
-              <Col span={6}>{item.transfer ? `${item.transfer} пересадка` : 'Прямой рейс'}</Col>
+              <Col span={6}>{printTime(...convertHours(calcDifference(item.departure, item.arrival)))}</Col>
+              <Col span={6}>{item.transfer ? `Кол-во пересадок: ${item.transfer}` : 'Прямой рейс'}</Col>
               <Col span={6}>{`${item.price} руб.`}</Col>
             </Row>
             <Row>
               <Col span={6}><Text type="secondary">{item.airline}</Text></Col>
               <Col span={6}><Text type="secondary">{item.flightCode}</Text></Col>
-              <Col span={6}><Text type="secondary">{item.transfer ? item.transferTime.format('HH:MM') : ''}</Text></Col>
-              <Col span={6}><Text type="secondary">{item.roundtrip? 'Туда и обратно' : 'Туда'}</Text></Col>
+              <Col span={6}><Text type="secondary">{item.transfer ? printTime(...convertHours(item.transferTime)) : ''}</Text></Col>
+              <Col span={6}><Text type="secondary">{item.roundtrip ? 'Туда и обратно' : 'Туда'}</Text></Col>
             </Row>
           </Col>
         </Row>
