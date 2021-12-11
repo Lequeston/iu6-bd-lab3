@@ -175,18 +175,15 @@ WHERE  substring(fl1.flightCode from 3) = cl.flightNumber AND cl.min <> fl1.id;
 
 --генерация тестовых данных для таблицы: "цены"
 --цена формируется из политики авиаперевозчика + марута + типа самолема + класса комфорта
-INSERT INTO prices (price, flightId)
+INSERT INTO prices (price, flightId, airlineId, planeTypesId, comfortClassId)
 SELECT
 	nextval('price_generate'),
-	FLI.id
-FROM flights FLI;
-
-UPDATE prices
-SET	airlineId = AIR.id,
-	planeTypesId = PLA.id,
-	comfortClassId = COM.id
+	FLI.id,
+	AIR.id,
+	PLA.id,
+	COM.id
 FROM airlines AIR, flights FLI, planeTypes PLA, comfortClasses COM
-WHERE prices.flightId = FLI.id AND AIR.id < 3 AND PLA.id < 3 AND COM.id < 3;
+WHERE PLA.id = 1 AND COM.id = 1 AND AIR = 1;
 
 --генерация тестовых данных для таблицы: "заказы"
 INSERT INTO orders (clientId, flightId, priceId)

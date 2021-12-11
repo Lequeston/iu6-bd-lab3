@@ -146,7 +146,7 @@ CREATE TABLE prices
 	price MONEY NOT NULL,
 	
 	airlineId INTEGER REFERENCES airlines (id),
-	flightId INTEGER UNIQUE REFERENCES flights (id),
+	flightId INTEGER REFERENCES flights (id),
 	planeTypesId INTEGER REFERENCES planeTypes (id),
 	comfortClassId INTEGER REFERENCES comfortClasses (id)
 );
