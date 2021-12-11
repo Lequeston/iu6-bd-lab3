@@ -1,4 +1,6 @@
 import express from "express";
+const { validationResult } = require('express-validator');
+
 import orderService from "../service/order.service";
 
 interface OrderControllerInterface {
@@ -7,12 +9,16 @@ interface OrderControllerInterface {
 
 class OrderController implements OrderControllerInterface {
   async addOrder(req: express.Request, res: express.Response): Promise<express.Response<any, Record<string, any>>> {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const clientId: string | undefined = req.body.clientId as string;
     const flightId: string | undefined = req.body.flightId as string;
-    const comfortClassId: string | undefined = req.body.comfortClassId as string;
-    const airlineId: string | undefined = req.body.airlineId as string;
+    const priceId: string | undefined = req.body.priceId as string;
 
-    await orderService.addOrder(clientId, flightId, comfortClassId, airlineId);
+    await orderService.addOrder(clientId, flightId, priceId);
     return res.json('Ok').status(200);
   }
 }

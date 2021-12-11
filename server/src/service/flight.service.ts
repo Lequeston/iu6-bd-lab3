@@ -35,16 +35,6 @@ class FlightService implements FlightServiceInterface {
   ) {
     try {
       await this.dbClient.query('BEGIN');
-      console.log(
-        flightsDecorationArray(
-          startPoint,
-          endPoint,
-          date && date.toISOString(),
-          comfortClass,
-          offset,
-          limit
-        )
-      );
       const queryArray = await this.dbClient.query(flightsDecorationArray(
         startPoint,
         endPoint,
