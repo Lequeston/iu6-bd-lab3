@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col } from 'antd';
-
-import CitySelect from '../components/CitySelect/CitySelect';
+import Select from '../components/Select';
 
 import './Main.css';
 
 const { Header, Content, Footer } = Layout;
 
 const cityList = [
-  {id: 1, title: 'Москва'},
-  {id: 2, title: 'Мо'},
-  {id: 3, title: 'Молотов'},
-  {id: 4, title: 'Молодечно'},
+  {key: 1, name: 'Москва'},
+  {key: 2, name: 'Мо'},
+  {key: 3, name: 'Молотов'},
+  {key: 4, name: 'Молодечно'},
 ]
 
 const Main = () => {
@@ -27,21 +26,20 @@ const Main = () => {
         <div className="site-layout-content">
           <Row gutter={16}>
             <Col span={6}>
-              <CitySelect
+              <Select
                 placeholder="Откуда"
-                setCity={setDepartureCity}
-                cityList={cityList}
+                data={cityList}
+                onSelected={setDepartureCity}
               />
             </Col>
             <Col span={6}>
-              <CitySelect
+              <Select
                 placeholder="Куда"
-                setCity={setArrivalCity}
-                cityList={cityList}
+                data={cityList}
+                onSelected={setArrivalCity}
               />
             </Col>
-            <Col span={6}></Col>
-            <Col span={6}></Col>
+            <Col span={12}></Col>
           </Row>
         </div>
         <div className="site-layout-content">Content</div>
