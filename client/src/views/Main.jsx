@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import Select from '../components/Select';
+import FlightList from '../components/FlightList';
 
 import './Main.css';
 
@@ -12,6 +14,15 @@ const cityList = [
   {key: 2, name: 'Мо'},
   {key: 3, name: 'Молотов'},
   {key: 4, name: 'Молодечно'},
+]
+
+const flightList = [
+  {key: 1, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 2, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 3, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 4, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 5, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 6, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
 ]
 
 const Main = () => {
@@ -53,7 +64,11 @@ const Main = () => {
             </Col>
           </Row>
         </div>
-        <div className="site-layout-content">Content</div>
+        <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
+          <FlightList
+            data={flightList}
+          />
+        </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
