@@ -46,39 +46,41 @@ const Main = () => {
         <div className="logo" />
       </Header>
       <Content style={{ padding: '0 50px' }}>
-        <div className="site-layout-content">
-          <Row gutter={16}>
-            <Col span={6}>
-              <Select
-                placeholder="Откуда"
-                data={cityList}
-                onSelected={setDepartureCity}
+        <div style={{ maxWidth: '950px', margin: 'auto'}}>
+          <div className="site-layout-content">
+            <Row gutter={16}>
+              <Col span={6}>
+                <Select
+                  placeholder="Откуда"
+                  data={cityList}
+                  onSelected={setDepartureCity}
+                />
+              </Col>
+              <Col span={6}>
+                <Select
+                  placeholder="Куда"
+                  data={cityList}
+                  onSelected={setArrivalCity}
+                />
+              </Col>
+              <Col span={9}></Col>
+              <Col span={3}>
+                <Button
+                  type="primary"
+                  icon={<SearchOutlined />}
+                  size="large"
+                  style={{ width: '100%' }}
+                >
+                  Найти
+                </Button>
+              </Col>
+            </Row>
+          </div>
+          <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
+            <FlightList
+              data={flightList}
               />
-            </Col>
-            <Col span={6}>
-              <Select
-                placeholder="Куда"
-                data={cityList}
-                onSelected={setArrivalCity}
-              />
-            </Col>
-            <Col span={9}></Col>
-            <Col span={3}>
-              <Button 
-                type="primary"
-                icon={<SearchOutlined />}
-                size="large"
-                style={{ width: '100%' }}
-              >
-                Найти
-              </Button>
-            </Col>
-          </Row>
-        </div>
-        <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
-          <FlightList
-            data={flightList}
-          />
+          </div>
         </div>
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
