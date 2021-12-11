@@ -14,5 +14,13 @@ export type FlightDecoration = {
     }
   },
   planeType: string,
-  airlineTitle: string
+  airlineTitle: string,
+  price: {
+    id: number,
+    price: number
+  },
+  comfortClass: {
+    id: number,
+    title: string
+  }
 }

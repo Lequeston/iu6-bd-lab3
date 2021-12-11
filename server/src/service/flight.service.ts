@@ -10,6 +10,7 @@ interface FlightServiceInterface {
     startPoint: string | undefined,
     endPoint: string | undefined,
     date: moment.Moment | undefined,
+    comfortClass: string | undefined,
     offset: number,
     limit: number
   ) => Promise<{
@@ -29,15 +30,27 @@ class FlightService implements FlightServiceInterface {
     startPoint: string | undefined,
     endPoint: string | undefined,
     date: moment.Moment | undefined,
+    comfortClass: string | undefined,
     offset: number,
     limit: number
   ) {
     try {
       await this.dbClient.query('BEGIN');
+      console.log(
+        flightsDecorationArray(
+          startPoint,
+          endPoint,
+          date && date.toISOString(),
+          comfortClass,
+          offset,
+          limit
+        )
+      );
       const queryArray = await this.dbClient.query(flightsDecorationArray(
         startPoint,
         endPoint,
         date && date.toISOString(),
+        comfortClass,
         offset,
         limit
       ));
@@ -58,13 +71,22 @@ class FlightService implements FlightServiceInterface {
           }
         },
         airlineTitle: row['airlineTitle'],
-        planeType: row['planetype']
+        planeType: row['planetype'],
+        price: {
+          id: row['priceid'],
+          price: row['price'].slice(1)
+        },
+        comfortClass: {
+          id: row['comfortclassid'],
+          title: row['comfortclasstitle']
+        }
       })));
 
       const queryLength = await this.dbClient.query(flightsDecorationLength(
         startPoint,
         endPoint,
-        date && date.toISOString()
+        date && date.toISOString(),
+        comfortClass
       ));
       const length: number = parseInt(queryLength.rows[0]['count'], 10);
       await this.dbClient.query('COMMIT');

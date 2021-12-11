@@ -12,6 +12,7 @@ class FlightControllers implements FlightControllersInterface {
     const startPoint: string | undefined = req.query.startPoint as string;
     const endPoint: string | undefined = req.query.endPoint as string;
     const date: string | undefined = req.query.date as string;
+    const comfortClass: string | undefined = req.query.comfortClass as string
     const page: number = parseInt(req.query.page as string, 10) || 1;
     const limit: number = parseInt(req.query.limit as string, 10) || 10;
 
@@ -21,6 +22,7 @@ class FlightControllers implements FlightControllersInterface {
       startPoint,
       endPoint,
       date && moment(date),
+      comfortClass,
       offset,
       limit
     );
