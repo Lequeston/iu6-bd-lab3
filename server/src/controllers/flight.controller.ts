@@ -1,5 +1,4 @@
 import express from "express";
-import moment from "moment";
 
 import flightService from "../service/flight.service";
 
@@ -21,7 +20,7 @@ class FlightControllers implements FlightControllersInterface {
     const result = await flightService.decoration(
       startPoint,
       endPoint,
-      date && moment(date),
+      date && new Date(date),
       comfortClass,
       offset,
       limit

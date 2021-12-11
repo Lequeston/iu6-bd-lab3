@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { Client } from 'pg';
 
 import client from '../configs/bd';
@@ -9,7 +8,7 @@ interface FlightServiceInterface {
   decoration: (
     startPoint: string | undefined,
     endPoint: string | undefined,
-    date: moment.Moment | undefined,
+    date: Date | undefined,
     comfortClass: string | undefined,
     offset: number,
     limit: number
@@ -29,7 +28,7 @@ class FlightService implements FlightServiceInterface {
   async decoration(
     startPoint: string | undefined,
     endPoint: string | undefined,
-    date: moment.Moment | undefined,
+    date: Date | undefined,
     comfortClass: string | undefined,
     offset: number,
     limit: number
@@ -57,8 +56,8 @@ class FlightService implements FlightServiceInterface {
 
       const res: FlightDecoration[] = await Promise.all(queryArray.rows.map(async (row): Promise<FlightDecoration> => ({
         id: row['flightid'],
-        airArrivalData: moment(row['airarrivaldata']).toISOString(),
-        airDepartureData: moment(row['airdeparturedata']).toISOString(),
+        airArrivalData: new Date(row['airarrivaldata']).toISOString(),
+        airDepartureData: new Date(row['airdeparturedata']).toISOString(),
         flightCode: row['flightcode'],
         route: {
           airArrival: {
