@@ -17,12 +17,23 @@ const cityList = [
 ]
 
 const flightList = [
-  {key: 1, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 2, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 3, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 4, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 5, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 6, airline: 'Turkish Airlines', departure: moment('2021-11-12T12:09:00.000Z'), arrival: moment('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 1, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 2, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 3, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 4, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: true, price: 14436},
+  {key: 5, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 0, transferTime: moment('00:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 6, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 7, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 8, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 9, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 10, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 11, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 12, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 13, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 15, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 16, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 17, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
+  {key: 18, airline: 'Turkish Airlines', departure: moment.utc('2021-11-12T12:09:00.000Z'), arrival: moment.utc('2021-11-12T12:09:00.000Z'), transfer: 1, transferTime: moment('02:00', 'hh:mm'), flightCode: 'BY7120', roundtrip: false, price: 14436},
 ]
 
 const Main = () => {
