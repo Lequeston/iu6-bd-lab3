@@ -53,14 +53,14 @@ const Main = () => {
                 <Select
                   placeholder="Откуда"
                   data={cityList}
-                  onSelected={setDepartureCity}
+                  onChange={setDepartureCity}
                 />
               </Col>
               <Col span={6}>
                 <Select
                   placeholder="Куда"
                   data={cityList}
-                  onSelected={setArrivalCity}
+                  onChange={setArrivalCity}
                 />
               </Col>
               <Col span={9}></Col>
