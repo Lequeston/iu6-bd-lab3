@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import Select from '../components/Select';
 
 import './Main.css';
@@ -39,7 +40,17 @@ const Main = () => {
                 onSelected={setArrivalCity}
               />
             </Col>
-            <Col span={12}></Col>
+            <Col span={9}></Col>
+            <Col span={3}>
+              <Button 
+                type="primary"
+                icon={<SearchOutlined />}
+                size="large"
+                style={{ width: '100%' }}
+              >
+                Найти
+              </Button>
+            </Col>
           </Row>
         </div>
         <div className="site-layout-content">Content</div>
