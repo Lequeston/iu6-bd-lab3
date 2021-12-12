@@ -6,6 +6,7 @@ dotenv.config();
 
 import router from './router';
 import client from './configs/bd';
+import logger from './configs/logs';
 
 const PORT: number = parseInt(process.env.PORT, 10) || 5000;
 
@@ -17,10 +18,20 @@ app.use('/api', router);
 
 const start = async (): Promise<void> => {
   try {
-    await client.connect();
+    await client.connect(err => {
+      if (err) {
+        logger.error(`
+          name: ${err.name}
+          message: ${err.message}
+          ${err.stack}
+        `);
+      } else {
+        console.info('Connecting to postgres bd');
+      }
+    });
     await app.listen(PORT, () => {
-      console.log(`Server listen at http://localhost:${PORT}`);
-    })
+      console.info(`Server listen at http://localhost:${PORT}`);
+    });
   } catch(e) {
     console.error(e);
   }
