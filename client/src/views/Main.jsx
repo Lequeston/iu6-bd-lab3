@@ -4,6 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import CitySelect from '../components/CitySelect';
 import DatePicker from '../components/DatePicker';
+import PassengerSelect from '../components/PassengerSelect';
 import FlightList from '../components/FlightList';
 
 import './Main.css';
@@ -14,8 +15,8 @@ const cityList = [
   {key: 1, name: 'Москва'},
   {key: 2, name: 'Мо'},
   {key: 3, name: 'Молотов'},
-  {key: 4, name: 'Молодечно'},
-]
+  {key: 4, name: 'Молодечно'}
+];
 
 const flightList = [
   {key: 1, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD HH:MM'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD HH:MM'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: true, price: 14436},
@@ -35,12 +36,22 @@ const flightList = [
   {key: 16, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD HH:MM'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD HH:MM'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
   {key: 17, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD HH:MM'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD HH:MM'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
   {key: 18, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD HH:MM'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD HH:MM'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436}
-]
+];
+
+const flightClassList = [
+  {key: 1, name:'Первый класс'},
+  {key: 2, name:'Бизнес класс'},
+  {key: 3, name:'Премиумный экономный класс'},
+  {key: 4, name:'Экономный класс'}
+
+];
 
 const Main = () => {
   const [departureCity, setDepartureCity] = useState();
   const [arrivalCity, setArrivalCity] = useState();
   const [dateRange, setDateRange] = useState();
+  const [flightClass, setFlightClass] = useState();
+  const [passengerAmount, setPassengerAmount] = useState();
 
   return (
     <Layout className="layout">
@@ -72,7 +83,11 @@ const Main = () => {
                 />
               </Col>
               <Col span={4}>
-
+                <PassengerSelect
+                  flightClassList={flightClassList}
+                  onFlightClassChange={setFlightClass}
+                  onPassengerAmountChange={setPassengerAmount}
+                />
               </Col>
               <Col span={3}>
                 <Button
