@@ -4,7 +4,8 @@ const { validationResult } = require('express-validator');
 import orderService from "../service/order.service";
 
 interface OrderControllerInterface {
-  addOrder: (req: express.Request, res: express.Response) => Promise<express.Response<any, Record<string, any>>>
+  addOrder: (req: express.Request, res: express.Response) => Promise<express.Response<any, Record<string, any>>>,
+  getAll: (req: express.Request, res: express.Response) => Promise<express.Response<any, Record<string, any>>>
 }
 
 class OrderController implements OrderControllerInterface {
@@ -18,8 +19,20 @@ class OrderController implements OrderControllerInterface {
     const flightId: string | undefined = req.body.flightId as string;
     const priceId: string | undefined = req.body.priceId as string;
 
-    await orderService.addOrder(clientId, flightId, priceId);
-    return res.json('Ok').status(200);
+    const order = await orderService.addOrder(clientId, flightId, priceId);
+    return res.json({
+      res: order
+    }).status(200);
+  }
+
+  async getAll(req: express.Request, res: express.Response): Promise<express.Response<any, Record<string, any>>> {
+    const id = req.headers.authorization;
+    const orders = await orderService.getAll(id);
+    return res.json({
+      res: {
+        array: orders
+      }
+    }).status(200);
   }
 }
 

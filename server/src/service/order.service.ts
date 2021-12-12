@@ -1,13 +1,20 @@
 import { Client } from "pg";
 
 import client from '../configs/bd';
+import { getAllOrdersQuery } from "../querys/order.query";
+import { Order } from "../types/order";
 
 interface OrderServiceInterface {
   addOrder(
     clientId: string | undefined,
     flightId: string | undefined,
     priceId: string | undefined
-  ): Promise<void>
+  ): Promise<{
+    clientId: string,
+    flightId: string,
+    priceId: string
+  }>,
+  getAll(clientId: string): Promise<Order[]>
 }
 
 class OrderService implements OrderServiceInterface {
@@ -39,13 +46,49 @@ class OrderService implements OrderServiceInterface {
       if (queryOrders.rows.length != 0) {
         throw new Error(`Заказ уже существует id=${queryOrders.rows[0]['id']}`);
       }
-      await this.dbClient.query({
+      const query = await this.dbClient.query({
         text: `
         INSERT INTO orders (clientId, flightId, priceId)
-          VALUES ($1, $2, $3)
+          VALUES ($1, $2, $3) RETURNING clientId, flightId, priceId
         `,
         values: [clientId, flightId, priceId]
       });
+      const order = {
+        clientId: query.rows[0]['clientId'],
+        flightId: query.rows[0]['flightId'],
+        priceId: query.rows[0]['priceId']
+      }
+      return order;
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  async getAll(clientId: string): Promise<Order[]> {
+    try {
+      if (!clientId) {
+        throw Error('Не задан id для клиента')
+      }
+      const query = await this.dbClient.query(getAllOrdersQuery(clientId));
+      const orders: Order[] = query.rows.map(value => ({
+        price: value['price'],
+        comfortClass: value['comfortclasses'],
+        planeType: value['planetype'],
+        airArrivalData: value['airarrivaldata'],
+        airDepartureData: value['airdeparturedata'],
+        route: {
+          airArrival: {
+            title: value['airarrivalltitle'],
+            city: value['cityarrivalltitle']
+          },
+          airDeparture: {
+            title: value['airdeparturetitle'],
+            city: value['citydeparturetitle']
+          }
+        },
+        flightNumber: value['flightnumber']
+      }));
+      return orders;
     } catch(e) {
       console.error(e);
     }
