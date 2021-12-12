@@ -1,11 +1,11 @@
 import React from 'react';
-import { List, Row, Col, Typography, Image } from 'antd';
+import { List, Row, Col, Typography, Image, Empty } from 'antd';
 
 import './FlightList.css';
 
 const { Text } = Typography;
 
-const FlightList = ({ data }) => {
+const FlightList = ({ data, length, setPage, limit, page }) => {
   const printTime = (hour, minute) => {
     if (minute === '0')
       return `${hour} ч.`;
@@ -22,17 +22,20 @@ const FlightList = ({ data }) => {
   const calcDifference = (early, late) => {
     return late.diff(early, 'hour', true);
   };
-
-  return (
+  console.log(data);
+  return data ? (
     <List
-    itemLayout="vertical"undefined
+    itemLayout="vertical"
     pagination={{
-      pageSize: 15,
+      onChange: page => setPage(page),
+      current: page,
+      total: length,
+      pageSize: limit,
     }}
     dataSource={data}
     renderItem={item => (
       <List.Item
-        key={item.key}
+        key={item.id}
       >
         <Row gutter={[16, 0]}>
           <Col>
@@ -47,21 +50,21 @@ const FlightList = ({ data }) => {
             <Row>
               <Col span={6}>{`${item.departure.format('hh:mm')} - ${item.arrival.format('hh:mm')}`}</Col>
               <Col span={6}>{printTime(...convertHours(calcDifference(item.departure, item.arrival)))}</Col>
-              <Col span={6}>{item.transfer ? `Кол-во пересадок: ${item.transfer}` : 'Прямой рейс'}</Col>
-              <Col span={6}>{`${item.price} руб.`}</Col>
+              {/*<Col span={6}>{item.transfer ? `Кол-во пересадок: ${item.transfer}` : 'Прямой рейс'}</Col>*/}
+              <Col span={6}>{`${item.price.price} руб.`}</Col>
             </Row>
             <Row>
-              <Col span={6}><Text type="secondary">{item.airline}</Text></Col>
+              {/*<Col span={6}><Text type="secondary">{item.airline}</Text></Col>*/}
               <Col span={6}><Text type="secondary">{item.flightCode}</Text></Col>
-              <Col span={6}><Text type="secondary">{item.transfer ? printTime(...convertHours(item.transferTime)) : ''}</Text></Col>
-              <Col span={6}><Text type="secondary">{item.roundtrip ? 'Туда и обратно' : 'Туда'}</Text></Col>
+              {/*<Col span={6}><Text type="secondary">{item.transfer ? printTime(...convertHours(item.transferTime)) : ''}</Text></Col>*/}
+              {/*<Col span={6}><Text type="secondary">{item.roundtrip ? 'Туда и обратно' : 'Туда'}</Text></Col>*/}
             </Row>
           </Col>
         </Row>
       </List.Item>
     )}
   />
-  );
+  ) : <Empty />;
 };
 
 export default FlightList;
