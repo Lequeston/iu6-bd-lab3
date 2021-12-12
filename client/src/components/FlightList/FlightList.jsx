@@ -45,7 +45,7 @@ const FlightList = ({ data }) => {
           </Col>
           <Col flex="auto">
             <Row>
-              <Col span={6}>{`${item.departure.format('HH:MM')} - ${item.arrival.format('HH:MM')}`}</Col>
+              <Col span={6}>{`${item.departure.format('hh:mm')} - ${item.arrival.format('hh:mm')}`}</Col>
               <Col span={6}>{printTime(...convertHours(calcDifference(item.departure, item.arrival)))}</Col>
               <Col span={6}>{item.transfer ? `Кол-во пересадок: ${item.transfer}` : 'Прямой рейс'}</Col>
               <Col span={6}>{`${item.price} руб.`}</Col>
