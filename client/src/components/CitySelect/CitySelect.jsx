@@ -1,13 +1,13 @@
 import React from 'react';
-import { Select as AntSelect } from 'antd';
+import { Select } from 'antd';
 
-import './Select.css';
+import './CitySelect.css';
 
-const { Option } = AntSelect;
+const { Option } = Select;
 
-const Select = ({ placeholder, data, onChange}) => {
+const CitySelect = ({ placeholder, data, onChange}) => {
   return (
-    <AntSelect
+    <Select
       style={{ width: '100%' }}
       showSearch
       size="large"
@@ -19,8 +19,8 @@ const Select = ({ placeholder, data, onChange}) => {
       {data.map((element) => {
         return (<Option key={element.key}>{element.name}</Option>)
       })}
-    </AntSelect>
+    </Select>
   );
 };
 
-export default Select;
+export default CitySelect;

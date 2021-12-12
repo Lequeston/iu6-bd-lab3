@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Layout, Row, Col, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import Select from '../components/Select';
+import CitySelect from '../components/CitySelect';
 import DatePicker from '../components/DatePicker';
 import FlightList from '../components/FlightList';
 
@@ -51,25 +51,28 @@ const Main = () => {
         <div style={{ maxWidth: '950px', margin: 'auto'}}>
           <div className="site-layout-content">
             <Row gutter={16}>
-              <Col span={6}>
-                <Select
+              <Col span={5}>
+                <CitySelect
                   placeholder="Откуда"
                   data={cityList}
                   onChange={setDepartureCity}
                 />
               </Col>
-              <Col span={6}>
-                <Select
+              <Col span={5}>
+                <CitySelect
                   placeholder="Куда"
                   data={cityList}
                   onChange={setArrivalCity}
                 />
               </Col>
-              <Col span={9}>
+              <Col span={7}>
                 <DatePicker
                   placeholder={['Туда', 'Обратно']}
                   onChange={setDateRange}
                 />
+              </Col>
+              <Col span={4}>
+
               </Col>
               <Col span={3}>
                 <Button
@@ -84,9 +87,7 @@ const Main = () => {
             </Row>
           </div>
           <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
-            <FlightList
-              data={flightList}
-              />
+            <FlightList data={flightList} />
           </div>
         </div>
       </Content>
