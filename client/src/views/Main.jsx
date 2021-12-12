@@ -54,6 +54,7 @@ const Main = () => {
   const [dateRange, setDateRange] = useState();
   const [flightClass, setFlightClass] = useState();
   const [passengerAmount, setPassengerAmount] = useState();
+  const [clientEmail, setClientEmail] = useState();
 
   return (
     <Layout className="layout">
@@ -94,7 +95,7 @@ const Main = () => {
             alignItems: "center",
             }}
           >
-            <LoginForm />
+            <LoginForm onFinish={setClientEmail}/>
           </Col>
         </Row>
       </Header>
