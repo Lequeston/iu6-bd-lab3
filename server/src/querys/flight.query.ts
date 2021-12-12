@@ -18,8 +18,8 @@ FROM
   prices,
 	comfortClasses
 WHERE
-  ${startPoint ? `AIR1.cityId = ${startPoint}::INTEGER AND CITY1.id = ${startPoint}::INTEGER AND ` : ''}
-  ${endPoint ? `AIR2.cityId = ${endPoint}::INTEGER AND CITY2.id = ${endPoint}::INTEGER AND ` : ''}
+  ${startPoint ? `AIR1.cityId = ${startPoint}::INTEGER AND CITY1.id = ${startPoint}::INTEGER AND ` : 'CITY1.id = AIR1.cityId AND'}
+  ${endPoint ? `AIR2.cityId = ${endPoint}::INTEGER AND CITY2.id = ${endPoint}::INTEGER AND ` : 'CITY2.id = AIR2.cityId AND'}
   ${date ? `flights.airArrivalData::DATE = '${date}'::DATE AND ` : ''}
 	routes.airArrivalId = AIR1.id AND routes.airDepartureId = AIR2.id
 	AND routes.id = flights.routeId AND planes.id = flights.planeId AND airlines.id = flights.airlineId

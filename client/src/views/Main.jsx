@@ -8,6 +8,7 @@ import PassengerSelect from '../components/PassengerSelect';
 import FlightList from '../components/FlightList';
 
 import './Main.css';
+import useFetchApi from '../hooks/useFetchApi';
 
 const { Header, Content, Footer } = Layout;
 
@@ -52,7 +53,16 @@ const Main = () => {
   const [dateRange, setDateRange] = useState();
   const [flightClass, setFlightClass] = useState();
   const [passengerAmount, setPassengerAmount] = useState();
-
+  const {
+    cites,
+    flights,
+    limit,
+    page,
+    setEndCity,
+    setStartCity,
+    length,
+    handleSetPage
+  } = useFetchApi();
   return (
     <Layout className="layout">
       <Header>
@@ -65,15 +75,15 @@ const Main = () => {
               <Col span={5}>
                 <CitySelect
                   placeholder="Откуда"
-                  data={cityList}
-                  onChange={setDepartureCity}
+                  data={cites}
+                  onChange={setStartCity}
                 />
               </Col>
               <Col span={5}>
                 <CitySelect
                   placeholder="Куда"
-                  data={cityList}
-                  onChange={setArrivalCity}
+                  data={cites}
+                  onChange={setEndCity}
                 />
               </Col>
               <Col span={7}>
@@ -102,7 +112,13 @@ const Main = () => {
             </Row>
           </div>
           <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
-            <FlightList data={flightList} />
+            <FlightList
+              data={flights}
+              length={length}
+              setPage={handleSetPage}
+              limit={limit}
+              page={page}
+            />
           </div>
         </div>
       </Content>

@@ -17,7 +17,7 @@ const CitySelect = ({ placeholder, data, onChange}) => {
       filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
     >
       {data.map((element) => {
-        return (<Option key={element.key}>{element.name}</Option>)
+        return (<Option key={element.id}>{element.title}</Option>)
       })}
     </Select>
   );
