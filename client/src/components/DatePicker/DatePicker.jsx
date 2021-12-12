@@ -1,22 +1,21 @@
 import React from 'react';
-import { DatePicker as AntDatePicker} from 'antd';
-import moment from 'moment';
+import { DatePicker as AntDatePicker } from '../Ant'
 
 import './DatePicker.css';
 
 const { RangePicker } = AntDatePicker;
 
-const DatePicker = (dateFormat, onSelected) => {
+const DatePicker = ({ placeholder, onChange }) => {
   return (
     <RangePicker
+      format='DD.MM.YYYY'
+      placeholder={placeholder}
       allowEmpty={[false, true]}
       size="large"
       style={{ width: '100%' }}
-      onChange={(dates, dateStrings) => {
-        console.log(dates);
-        onSelected(dates);
+      onChange={(dates, ...other) => {
+        onChange(dates);
       }}
-      format={dateFormat}
     />
   );
 };

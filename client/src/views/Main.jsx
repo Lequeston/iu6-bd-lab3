@@ -3,6 +3,7 @@ import { Layout, Row, Col, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import Select from '../components/Select';
+import DatePicker from '../components/DatePicker';
 import FlightList from '../components/FlightList';
 
 import './Main.css';
@@ -39,6 +40,7 @@ const flightList = [
 const Main = () => {
   const [departureCity, setDepartureCity] = useState();
   const [arrivalCity, setArrivalCity] = useState();
+  const [dateRange, setDateRange] = useState();
 
   return (
     <Layout className="layout">
@@ -63,7 +65,12 @@ const Main = () => {
                   onChange={setArrivalCity}
                 />
               </Col>
-              <Col span={9}></Col>
+              <Col span={9}>
+                <DatePicker
+                  placeholder={['Туда', 'Обратно']}
+                  onChange={setDateRange}
+                />
+              </Col>
               <Col span={3}>
                 <Button
                   type="primary"
