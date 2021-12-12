@@ -9,8 +9,23 @@ const format = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} [${label}] ${level}: ${message}`;
 });
 
+const customLevels = {
+  levels: {
+    error: 0,
+    warn: 1,
+    info: 2,
+    http: 3,
+    verbose: 4,
+    debug: 5,
+    silly: 6,
+    sql: 7
+  },
+  colors: {
+    sql: 'blue'
+  }
+};
 const logger = winston.createLogger({
-  level: 'info',
+  levels: customLevels.levels,
   format: combine(
     label({ label: 'ЛР3' }),
     timestamp(),
@@ -24,6 +39,10 @@ const logger = winston.createLogger({
     new winston.transports.File({
       filename: path.resolve(logPath, 'info.log'),
       level: 'info'
+    }),
+    new winston.transports.File({
+      filename: path.resolve(logPath, 'sql.log'),
+      level: 'sql'
     }),
   ],
 });
