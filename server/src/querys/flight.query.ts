@@ -1,3 +1,6 @@
+import { level } from "winston";
+import logger from "../configs/logs";
+
 export const flightsDecoration = (
   startPoint: string | undefined,
   endPoint: string | undefined,
@@ -33,36 +36,50 @@ export const flightsDecorationArray = (
   comfortClass: string | undefined,
   offset: number,
   limit: number
-): string => `
-SELECT
-	flights.id flightId,
-	flights.airArrivalData,
-	flights.airDepartureData,
-	flights.flightCode,
-	routes.airArrivalId,
-	routes.airDepartureId,
-	planes.planeTypeId,
-	airlines.title airlineTitle,
-	AIR1.title arrivalAirportTitle,
-	CITY1.title arrivalCityTitle,
-	AIR2.title departureAirportTitle,
-	CITY2.title departureCityTitle,
-	planeTypes.title planeType,
-  prices.price,
-  prices.id priceId,
-	comfortClasses.title comfortClassTitle,
-  comfortClasses.id comfortClassId
-${flightsDecoration(startPoint, endPoint, date, comfortClass)}
-LIMIT ${limit}::INTEGER OFFSET ${offset}::INTEGER
-`;
+): string => {
+	const res = `
+	SELECT
+		flights.id flightId,
+		flights.airArrivalData,
+		flights.airDepartureData,
+		flights.flightCode,
+		routes.airArrivalId,
+		routes.airDepartureId,
+		planes.planeTypeId,
+		airlines.title airlineTitle,
+		AIR1.title arrivalAirportTitle,
+		CITY1.title arrivalCityTitle,
+		AIR2.title departureAirportTitle,
+		CITY2.title departureCityTitle,
+		planeTypes.title planeType,
+		prices.price,
+		prices.id priceId,
+		comfortClasses.title comfortClassTitle,
+		comfortClasses.id comfortClassId
+	${flightsDecoration(startPoint, endPoint, date, comfortClass)}
+	LIMIT ${limit}::INTEGER OFFSET ${offset}::INTEGER
+	`;
+	logger.log({
+		level: 'info',
+		message: res
+	});
+	return res;
+}
 
 export const flightsDecorationLength = (
   startPoint: string | undefined,
   endPoint: string | undefined,
   date: string | undefined,
   comfortClass: string | undefined
-): string => `
-SELECT
-	COUNT(*)
-${flightsDecoration(startPoint, endPoint, date, comfortClass)}
-`;
+): string => {
+	const res = `
+	SELECT
+		COUNT(*)
+	${flightsDecoration(startPoint, endPoint, date, comfortClass)}
+	`;
+	logger.log({
+		level: 'info',
+		message: res
+	});
+	return res;
+}
