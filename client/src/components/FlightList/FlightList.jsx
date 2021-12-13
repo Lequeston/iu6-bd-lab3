@@ -22,7 +22,7 @@ const FlightList = ({ data, length, setPage, limit, page }) => {
   const calcDifference = (early, late) => {
     return late.diff(early, 'hour', true);
   };
-  console.log(data);
+
   return data ? (
     <List
     itemLayout="vertical"
