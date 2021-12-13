@@ -2,11 +2,10 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 
-import useFetchApi from '../src/hooks/useFetchApi';
-
 import Header from './components/Header'
 import Main from './views/Main';
 import Orders from './views/Orders/Orders';
+import Footer from './components/Footer'
 
 import useFetchApi from '../src/hooks/useFetchApi';
 
@@ -17,15 +16,16 @@ const App = () => {
     limit,
     page,
     length,
+    clientToken,
     setEndCity,
     setStartCity,
-    setClientId,
+    setLoginCredentials,
     handleSetPage
   } = useFetchApi();
 
   return (
     <Layout className="layout">
-      <Header onLoginFinish={setClientId} />
+      <Header onLoginFinish={setLoginCredentials} />
       <Routes>
         <Route 
           path='/'
@@ -46,7 +46,7 @@ const App = () => {
           path='/orders'
           element={
             <Orders
-
+              clientOrders={clientOrders}
             />
           }
         />

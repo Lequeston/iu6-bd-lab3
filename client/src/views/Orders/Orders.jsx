@@ -4,7 +4,9 @@ import './Orders.css'
 
 const Orders = () => {
   return (
-    <div>Orders</div>
+    <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
+
+    </div>
   );
 };
 

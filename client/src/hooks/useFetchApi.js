@@ -9,7 +9,9 @@ const useFetchApi = () => {
 
   const [cities, setCities] = useState([]);
   const [flights, setFlights] = useState(undefined);
+  const [clientToken, setClientToken] = useState();
 
+  const [loginCredentials, setLoginCredentials] = useState();
   const [startCity, setStartCity] = useState(undefined);
   const [endCity, setEndCity] = useState(undefined);
   const [page, setPage] = useState(1);
@@ -17,7 +19,7 @@ const useFetchApi = () => {
   const [length, setLength] = useState(0);
 
   useEffect(() => {
-    const getcities = async () => {
+    const getCities = async () => {
       try {
         const res = await fetch(`${API_URL}/city`);
         const body = await res.json();
@@ -32,7 +34,7 @@ const useFetchApi = () => {
         console.error(e);
       }
     }
-    getcities();
+    getCities();
   }, [API_URL]);
 
   useEffect(() => {
@@ -90,6 +92,11 @@ const useFetchApi = () => {
     getFlights();
   }, [startCity, endCity, API_URL, page]);
 
+  useEffect(() => {
+    // Очень умная и продвинутая авторизация
+    setClientToken(1);
+  }, [loginCredentials]);
+
   const handleSetPage = useCallback(
     (page) => {
       setPage(lastPage => (page < 1 || page > maxPage) ? lastPage : page);
@@ -104,9 +111,11 @@ const useFetchApi = () => {
     page,
     length,
     maxPage,
+    clientToken,
     setPage,
     setStartCity,
     setEndCity,
+    setLoginCredentials,
     handleSetPage
   }
 }
