@@ -33,58 +33,54 @@ class FlightService implements FlightServiceInterface {
     offset: number,
     limit: number
   ) {
-    try {
-      await this.dbClient.query('BEGIN');
-      const queryArray = await this.dbClient.query(flightsDecorationArray(
-        startPoint,
-        endPoint,
-        date && date.toISOString(),
-        comfortClass,
-        offset,
-        limit
-      ));
+    await this.dbClient.query('BEGIN');
+    const queryArray = await this.dbClient.query(flightsDecorationArray(
+      startPoint,
+      endPoint,
+      date && date.toISOString(),
+      comfortClass,
+      offset,
+      limit
+    ));
 
-      const res: FlightDecoration[] = await Promise.all(queryArray.rows.map(async (row): Promise<FlightDecoration> => ({
-        id: row['flightid'],
-        airArrivalData: new Date(row['airarrivaldata']).toISOString(),
-        airDepartureData: new Date(row['airdeparturedata']).toISOString(),
-        flightCode: row['flightcode'],
-        route: {
-          airArrival: {
-            title: row['arrivalairporttitle'],
-            city: row['arrivalcitytitle']
-          },
-          airDeparture: {
-            title: row['departureairporttitle'],
-            city: row['departurecitytitle']
-          }
+    const res: FlightDecoration[] = await Promise.all(queryArray.rows.map(async (row): Promise<FlightDecoration> => ({
+      id: row['flightid'],
+      airArrivalData: new Date(row['airarrivaldata']).toISOString(),
+      airDepartureData: new Date(row['airdeparturedata']).toISOString(),
+      flightCode: row['flightcode'],
+      route: {
+        airArrival: {
+          title: row['arrivalairporttitle'],
+          city: row['arrivalcitytitle']
         },
-        airlineTitle: row['airlineTitle'],
-        planeType: row['planetype'],
-        price: {
-          id: row['priceid'],
-          price: row['price'].slice(1)
-        },
-        comfortClass: {
-          id: row['comfortclassid'],
-          title: row['comfortclasstitle']
+        airDeparture: {
+          title: row['departureairporttitle'],
+          city: row['departurecitytitle']
         }
-      })));
-
-      const queryLength = await this.dbClient.query(flightsDecorationLength(
-        startPoint,
-        endPoint,
-        date && date.toISOString(),
-        comfortClass
-      ));
-      const length: number = parseInt(queryLength.rows[0]['count'], 10);
-      await this.dbClient.query('COMMIT');
-      return {
-        array: res,
-        length
+      },
+      airlineTitle: row['airlineTitle'],
+      planeType: row['planetype'],
+      price: {
+        id: row['priceid'],
+        price: row['price'].slice(1)
+      },
+      comfortClass: {
+        id: row['comfortclassid'],
+        title: row['comfortclasstitle']
       }
-    } catch(e) {
-      console.error(e);
+    })));
+
+    const queryLength = await this.dbClient.query(flightsDecorationLength(
+      startPoint,
+      endPoint,
+      date && date.toISOString(),
+      comfortClass
+    ));
+    const length: number = parseInt(queryLength.rows[0]['count'], 10);
+    await this.dbClient.query('COMMIT');
+    return {
+      array: res,
+      length
     }
   }
 }

@@ -4,12 +4,13 @@ const { validationResult } = require('express-validator');
 
 
 interface ClientControllerInterface {
-  changeClient: (req: express.Request, res: express.Response) => Promise<express.Response<any, Record<string, any>>>,
-  getClient: (req: express.Request, res: express.Response) => Promise<express.Response<any, Record<string, any>>>
+  changeClient: (req: express.Request, res: express.Response, next: express.NextFunction) => Promise<express.Response<any, Record<string, any>>>,
+  getClient: (req: express.Request, res: express.Response, next: express.NextFunction) => Promise<express.Response<any, Record<string, any>>>
 }
 
 class ClientController implements ClientControllerInterface {
-  async changeClient(req: express.Request, res: express.Response): Promise<express.Response<any, Record<string, any>>> {
+  async changeClient(req: express.Request, res: express.Response, next: express.NextFunction): Promise<express.Response<any, Record<string, any>>> {
+    try {
     const id: string | undefined = req.headers.authorization;
 
     const lastName: string | undefined = req.body.lastName as string;
@@ -34,15 +35,22 @@ class ClientController implements ClientControllerInterface {
     return res.json({
       res: client
     }).status(200);
+    } catch(e) {
+      next(e);
+    }
   }
 
-  async getClient(req: express.Request, res: express.Response): Promise<express.Response<any, Record<string, any>>> {
-    const id: string | undefined = req.headers.authorization;
+  async getClient(req: express.Request, res: express.Response, next: express.NextFunction): Promise<express.Response<any, Record<string, any>>> {
+    try {
+      const id: string | undefined = req.headers.authorization;
 
-    const client = await clientService.getClient(id);
-    return res.json({
-      res: client
-    }).status(200);
+      const client = await clientService.getClient(id);
+      return res.json({
+        res: client
+      }).status(200);
+    } catch(e) {
+      next(e);
+    }
   }
 }
 

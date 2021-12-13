@@ -15,16 +15,12 @@ class ComfortClassesService implements ComfortClassesServiceInterface {
   }
 
   async getAll() {
-    try {
-      const query = await this.dbClient.query('SELECT id, title FROM comfortClasses');
-      const res: ComfortClass[] = query.rows.map(row => ({
-        id: row['id'],
-        title: row['title']
-      }))
-      return res;
-    } catch(e) {
-      console.error(e);
-    }
+    const query = await this.dbClient.query('SELECT id, title FROM comfortClasses');
+    const res: ComfortClass[] = query.rows.map(row => ({
+      id: row['id'],
+      title: row['title']
+    }))
+    return res;
   }
 }
 
