@@ -7,7 +7,7 @@ const useFetchApi = () => {
   const limit = 10;
 
 
-  const [cites, setCites] = useState([]);
+  const [cities, setCities] = useState([]);
   const [flights, setFlights] = useState(undefined);
 
   const [startCity, setStartCity] = useState(undefined);
@@ -17,22 +17,22 @@ const useFetchApi = () => {
   const [length, setLength] = useState(0);
 
   useEffect(() => {
-    const getCites = async () => {
+    const getcities = async () => {
       try {
         const res = await fetch(`${API_URL}/city`);
         const body = await res.json();
         const result = body['res'];
-        const cites = result.map(value => ({
+        const cities = result.map(value => ({
           id: value['id'],
           title: value['title'],
           country: value['country']
         }));
-        setCites(cites);
+        setCities(cities);
       } catch(e) {
         console.error(e);
       }
     }
-    getCites();
+    getcities();
   }, [API_URL]);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const useFetchApi = () => {
   );
 
   return {
-    cites,
+    cities,
     flights,
     limit,
     page,
