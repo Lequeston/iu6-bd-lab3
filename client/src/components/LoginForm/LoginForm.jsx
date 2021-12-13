@@ -32,7 +32,8 @@ const LoginForm = ({ onFinish }) => {
             htmlType="submit"
             disabled={
               !form.isFieldsTouched(true) ||
-              !!form.getFieldsError().filter(({ errors }) => errors.length).length
+              !!form.getFieldsError().filter(({ errors }) => errors.length).length ||
+              !form.getFieldsValue().email
             }
           >
             Log in
@@ -43,4 +44,3 @@ const LoginForm = ({ onFinish }) => {
 };
 
 export default LoginForm;
-
