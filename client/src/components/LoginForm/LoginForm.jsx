@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
+import RegisterForm from '../RegisterForm';
 
 import './LoginForm.css';
 
@@ -36,10 +37,11 @@ const LoginForm = ({ onFinish }) => {
               !form.getFieldsValue().email
             }
           >
-            Log in
+            Войти
           </Button>
         )}
       </Form.Item>
+      <RegisterForm />
     </Form>  )
 };
 
