@@ -1,4 +1,3 @@
-import { level } from "winston";
 import logger from "../configs/logs";
 
 export const flightsDecoration = (
@@ -60,7 +59,7 @@ export const flightsDecorationArray = (
 	LIMIT ${limit}::INTEGER OFFSET ${offset}::INTEGER
 	`;
 	logger.log({
-		level: 'info',
+		level: 'sql',
 		message: res
 	});
 	return res;
@@ -78,7 +77,7 @@ export const flightsDecorationLength = (
 	${flightsDecoration(startPoint, endPoint, date, comfortClass)}
 	`;
 	logger.log({
-		level: 'info',
+		level: 'sql',
 		message: res
 	});
 	return res;

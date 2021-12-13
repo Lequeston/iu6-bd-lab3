@@ -155,7 +155,7 @@ INSERT INTO itinerary (postion, airId, routeId)
 VALUES (1, 1, 1);
 
 --генерация тестовых данных для таблицы: "рейсы"
-INSERT INTO flights (airlineId, airArrivalData, airDepartureData, flightCode, planeId, routeId)
+INSERT INTO flights (airlineId, airDepartureData, airArrivalData, flightCode, planeId, routeId)
 SELECT COM.id,
 	TO_TIMESTAMP(CONCAT('12.11.2021 ', TO_CHAR(FLOOR(nextval('dep_time_min') / 60), 'FM909'), CONCAT(':', TO_CHAR(MOD(currval('dep_time_min'), 60), 'FM909')), ':00'), 'DD.MM.YYYY HH24:MI:SS'),
 	TO_TIMESTAMP(CONCAT('12.11.2021 ', TO_CHAR(FLOOR(nextval('dep_time_min') / 60), 'FM909'), CONCAT(':', TO_CHAR(MOD(currval('dep_time_min'), 60), 'FM909')), ':00'), 'DD.MM.YYYY HH24:MI:SS'),
@@ -183,7 +183,7 @@ SELECT
 	PLA.id,
 	COM.id
 FROM airlines AIR, flights FLI, planeTypes PLA, comfortClasses COM
-WHERE PLA.id = 1 AND COM.id = 1 AND AIR = 1;
+WHERE PLA.id = 1 AND COM.id = 1 AND AIR.id = 1 AND FLI.airlineId = AIR.id;
 
 --генерация тестовых данных для таблицы: "заказы"
 INSERT INTO orders (clientId, flightId, priceId)

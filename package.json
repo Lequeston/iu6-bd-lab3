@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start:client": "npm run start --prefix client",
-    "start:server": "npm run start --prefix server",
+    "start:server": "npm run dev --prefix server",
     "start": "concurrently \"npm run start:server\" \"npm run start:client\""
   },
   "devDependencies": {

@@ -13,4 +13,6 @@ router.post(
   orderController.addOrder
 );
 
+router.get('/', orderController.getAll);
+
 export default router;
