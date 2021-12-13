@@ -8,7 +8,7 @@ import Header from './components/Header'
 import Main from './views/Main';
 import Orders from './views/Orders/Orders';
 
-const { Footer } = Layout;
+import useFetchApi from '../src/hooks/useFetchApi';
 
 const App = () => {
   const {
@@ -51,9 +51,7 @@ const App = () => {
           }
         />
       </Routes>
-      <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2018 Created by Ant UED
-      </Footer>
+      <Footer />
     </Layout>
   );
 }
