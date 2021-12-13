@@ -5,11 +5,13 @@ import {
 } from 'react-router-dom';
 
 import Main from './views/Main';
+import Orders from './views/Orders/Orders';
 
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<Main />}/>
+      <Route path='/' element={<Main />} />
+      <Route path='/orders' element={<Orders />} />
     </Routes>
   );
 }
