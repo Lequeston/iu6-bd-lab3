@@ -6,6 +6,8 @@ import RegisterForm from '../RegisterForm';
 import './LoginForm.css';
 
 const LoginForm = ({ onFinish }) => {
+  const [clientId, setClientId] = useState();
+
   const [form] = Form.useForm();
   const [, forceUpdate] = useState({}); // To disable submit button at the beginning.
 
@@ -13,12 +15,16 @@ const LoginForm = ({ onFinish }) => {
     forceUpdate({});
   }, []);
 
+  useEffect(() => {
+    onFinish(clientId);
+  }, [clientId, onFinish]);
+
   return (
     <Form
       form={form}
       name="horizontal_login"
       layout="inline"
-      onFinish={onFinish}
+      onFinish={(value) => setClientId(value.email)}
     >
       <Form.Item name="email">
         <Input
