@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Typography, Image, Layout, Row, Col, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import LoginForm from '../components/LoginForm';
-import CitySelect from '../components/CitySelect';
-import DatePicker from '../components/DatePicker';
-import PassengerSelect from '../components/PassengerSelect';
-import FlightList from '../components/FlightList';
+import LoginForm from '../../components/LoginForm';
+import CitySelect from '../../components/CitySelect';
+import DatePicker from '../../components/DatePicker';
+import PassengerSelect from '../../components/PassengerSelect';
+import FlightList from '../../components/FlightList';
 
 import './Main.css';
-import useFetchApi from '../hooks/useFetchApi';
+import useFetchApi from '../../hooks/useFetchApi';
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
