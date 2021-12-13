@@ -14,33 +14,6 @@ import useFetchApi from '../hooks/useFetchApi';
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
 
-const cityList = [
-  {key: 1, name: 'Москва'},
-  {key: 2, name: 'Мо'},
-  {key: 3, name: 'Молотов'},
-  {key: 4, name: 'Молодечно'}
-];
-
-const flightList = [
-  {key: 1, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 2, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 3, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 22:00', 'YYYY-MM-DD hh:mm'), transfer: 0, transferTime: 0, flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 4, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 0, transferTime: 0, flightCode: 'BY7120', roundtrip: true, price: 14436},
-  {key: 5, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 0, transferTime: 0, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 6, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 7, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 8, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 9, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 10, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 11, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 12, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 13, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 15, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 16, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 17, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436},
-  {key: 18, airline: 'Turkish Airlines', departure: dayjs('2021-11-12 12:09', 'YYYY-MM-DD hh:mm'), arrival: dayjs('2021-11-12 23:09', 'YYYY-MM-DD hh:mm'), transfer: 1, transferTime: 1.5, flightCode: 'BY7120', roundtrip: false, price: 14436}
-];
-
 const flightClassList = [
   {key: 1, name:'Первый класс'},
   {key: 2, name:'Бизнес класс'},
@@ -58,7 +31,7 @@ const Main = () => {
   const [clientEmail, setClientEmail] = useState();
 
   const {
-    cites,
+    cities,
     flights,
     limit,
     page,
@@ -67,6 +40,12 @@ const Main = () => {
     length,
     handleSetPage
   } = useFetchApi();
+
+  const fetchAPI = () => {
+    setStartCity(departureCity);
+    setEndCity(arrivalCity);
+  };
+
   return (
     <Layout className="layout">
 
@@ -119,15 +98,15 @@ const Main = () => {
               <Col span={5}>
                 <CitySelect
                   placeholder="Откуда"
-                  data={cites}
-                  onChange={setStartCity}
+                  data={cities}
+                  onChange={setDepartureCity}
                 />
               </Col>
               <Col span={5}>
                 <CitySelect
                   placeholder="Куда"
-                  data={cites}
-                  onChange={setEndCity}
+                  data={cities}
+                  onChange={setArrivalCity}
                 />
               </Col>
               <Col span={7}>
@@ -149,6 +128,7 @@ const Main = () => {
                   icon={<SearchOutlined />}
                   size="large"
                   style={{ width: '100%' }}
+                  onClick={fetchAPI}
                 >
                   Найти
                 </Button>

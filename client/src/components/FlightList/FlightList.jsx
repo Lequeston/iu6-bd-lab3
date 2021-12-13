@@ -27,7 +27,7 @@ const FlightList = ({ data, length, setPage, limit, page }) => {
     <List
     itemLayout="vertical"
     pagination={{
-      onChange: page => setPage(page),
+      onChange: setPage,
       current: page,
       total: length,
       pageSize: limit,
@@ -48,8 +48,8 @@ const FlightList = ({ data, length, setPage, limit, page }) => {
           </Col>
           <Col flex="auto">
             <Row>
-              <Col span={6}>{`${item.departure.format('hh:mm')} - ${item.arrival.format('hh:mm')}`}</Col>
-              <Col span={6}>{printTime(...convertHours(calcDifference(item.departure, item.arrival)))}</Col>
+              <Col span={6}>{`${item.airDepartureData.format('HH:mm')} - ${item.airArrivalData.format('HH:mm')}`}</Col>
+              <Col span={6}>{printTime(...convertHours(calcDifference(item.airDepartureData, item.airArrivalData)))}</Col>
               {/*<Col span={6}>{item.transfer ? `Кол-во пересадок: ${item.transfer}` : 'Прямой рейс'}</Col>*/}
               <Col span={6}>{`${item.price.price} руб.`}</Col>
             </Row>
