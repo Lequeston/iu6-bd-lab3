@@ -93,7 +93,8 @@ const Main = () => {
             />
             <Title 
               style={{
-                fontSize: '20px',
+                fontSize: '25px',
+                fontWeight: '50',
                 height: 'fit-content',
                 margin: '0'
                 }}
