@@ -58,7 +58,7 @@ class FlightService implements FlightServiceInterface {
           city: row['departurecitytitle']
         }
       },
-      airlineTitle: row['airlineTitle'],
+      airlineTitle: row['airlinetitle'],
       planeType: row['planetype'],
       price: {
         id: row['priceid'],
