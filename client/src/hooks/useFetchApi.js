@@ -10,6 +10,7 @@ const useFetchApi = () => {
   const [cities, setCities] = useState([]);
   const [flights, setFlights] = useState(undefined);
   const [clientToken, setClientToken] = useState();
+  const [clientOrders, setClientOrders] = useState();
 
   const [loginCredentials, setLoginCredentials] = useState();
   const [startCity, setStartCity] = useState(undefined);
@@ -97,6 +98,20 @@ const useFetchApi = () => {
     setClientToken(1);
   }, [loginCredentials]);
 
+  useEffect(() => {
+    const getOrders = async () => {
+      const res = await fetch(`${API_URL}/order`, {
+        headers: {
+          authorization: 1
+        }
+      }); 
+      const body = await res.json();
+      const orders = body['res']['array'];
+      setClientOrders(orders)
+    }
+    getOrders()
+  }, [clientToken, setClientOrders, API_URL]);
+
   const handleSetPage = useCallback(
     (page) => {
       setPage(lastPage => (page < 1 || page > maxPage) ? lastPage : page);
@@ -112,6 +127,7 @@ const useFetchApi = () => {
     length,
     maxPage,
     clientToken,
+    clientOrders,
     setPage,
     setStartCity,
     setEndCity,
