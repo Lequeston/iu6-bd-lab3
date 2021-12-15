@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 
 import Header from './components/Header'
 import Main from './views/Main';
-import Orders from './views/Orders/Orders';
+import OrderList from './views/OrderList';
 import Footer from './components/Footer'
 
 import useFetchApi from '../src/hooks/useFetchApi';
@@ -16,7 +16,7 @@ const App = () => {
     limit,
     page,
     length,
-    clientToken,
+    clientOrders,
     setEndCity,
     setStartCity,
     setLoginCredentials,
@@ -45,7 +45,7 @@ const App = () => {
         <Route 
           path='/orders'
           element={
-            <Orders
+            <OrderList
               clientOrders={clientOrders}
             />
           }
