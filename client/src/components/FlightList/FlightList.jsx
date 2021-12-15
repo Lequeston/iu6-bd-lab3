@@ -31,6 +31,7 @@ const FlightList = ({ data, length, setPage, limit, page }) => {
         current: page,
         total: length,
         pageSize: limit,
+        showSizeChanger: false
       }}
       dataSource={data}
       renderItem={item => (

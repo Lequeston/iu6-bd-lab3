@@ -1,11 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
 import dayjs from 'dayjs';
 
 const useFetchApi = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const limit = 10;
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [cities, setCities] = useState([]);
   const [flights, setFlights] = useState(undefined);
@@ -13,9 +16,9 @@ const useFetchApi = () => {
   const [clientOrders, setClientOrders] = useState();
 
   const [loginCredentials, setLoginCredentials] = useState();
-  const [startCity, setStartCity] = useState(undefined);
-  const [endCity, setEndCity] = useState(undefined);
-  const [page, setPage] = useState(1);
+  const [startCity, setStartCity] = useState(searchParams.get('startPoint'));
+  const [endCity, setEndCity] = useState(searchParams.get('endPoint'));
+  const [page, setPage] = useState(parseInt(searchParams.get('page'), 10) || 1);
   const [maxPage, setMaxPage] = useState(1);
   const [length, setLength] = useState(0);
 
@@ -39,21 +42,37 @@ const useFetchApi = () => {
   }, [API_URL]);
 
   useEffect(() => {
-    const createUrl = () => {
+    const createURL = () => {
+      console.log(searchParams);
+      const url = new URL(`${API_URL}/flight/decoration`);
       const array = [
-        startCity && `startPoint=${startCity}`,
-        endCity && `endPoint=${endCity}`,
-        `page=${page}`,
-        `limit=${limit}`
-      ]
-      .filter(value => value)
-      .map((value, iter) => iter === 0 ? `?${value}` : `&${value}`);
-      return `${API_URL}/flight/decoration${array.join('')}`;
+        {
+          key: 'startPoint',
+          value: startCity
+        },
+        {
+          key: 'endPoint',
+          value: endCity
+        },
+        {
+          key: 'page',
+          value: page
+        },
+        {
+          key: 'limit',
+          value: limit
+        }
+      ];
+      array
+        .filter(value => value)
+        .forEach(({key, value}) => value && url.searchParams.append(key, value));
+      navigate(`${location.pathname}?${url.searchParams}`)
+      return url;
     }
 
     const getFlights = async() => {
       try {
-        const res = await fetch(createUrl());
+        const res = await fetch(createURL());
         const body = await res.json();
         const array = body['res']['array'];
         const length = body['res']['length'];
@@ -121,6 +140,8 @@ const useFetchApi = () => {
 
   return {
     cities,
+    startCity,
+    endCity,
     flights,
     limit,
     page,
