@@ -40,7 +40,6 @@ const Main = ({
   };
 
   return (
-    <div>
       <Content style={{ padding: '0 50px' }}>
         <div style={{ maxWidth: '950px', margin: 'auto'}}>
           <div className="site-layout-content">
@@ -85,7 +84,7 @@ const Main = ({
               </Col>
             </Row>
           </div>
-          <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px)' }} className="site-layout-content">
+          <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px - 50px)' }} className="site-layout-content">
             <FlightList
               data={flights}
               length={length}
@@ -96,7 +95,6 @@ const Main = ({
           </div>
         </div>
       </Content>
-    </div>
   );
 }
 
