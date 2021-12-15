@@ -5,7 +5,7 @@ import './CitySelect.css';
 
 const { Option } = Select;
 
-const CitySelect = ({ placeholder, data, onChange}) => {
+const CitySelect = ({ placeholder, data, onChange, value}) => {
   return (
     <Select
       style={{ width: '100%' }}
@@ -15,6 +15,7 @@ const CitySelect = ({ placeholder, data, onChange}) => {
       optionFilterProp="children"
       onChange={onChange}
       filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+      value={value}
     >
       {data.map((element) => {
         return (<Option key={element.id}>{element.title}</Option>)

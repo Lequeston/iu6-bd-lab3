@@ -21,6 +21,8 @@ const flightClassList = [
 const Main = ({
   cities,
   flights,
+  startCity,
+  endCity,
   limit,
   page,
   length,
@@ -48,20 +50,22 @@ const Main = ({
                 <CitySelect
                   placeholder="Откуда"
                   data={cities}
-                  onChange={setDepartureCity}
+                  onChange={setStartCity}
+                  value={startCity}
                 />
               </Col>
               <Col span={5}>
                 <CitySelect
                   placeholder="Куда"
                   data={cities}
-                  onChange={setArrivalCity}
+                  onChange={setEndCity}
+                  value={endCity}
                 />
               </Col>
               <Col span={7}>
                 <DatePicker
                   placeholder={['Туда', 'Обратно']}
-                  onChange={setDateRange}
+                  onChange={setEndCity}
                 />
               </Col>
               <Col span={4}>

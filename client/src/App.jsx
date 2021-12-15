@@ -13,6 +13,8 @@ const App = () => {
   const {
     cities,
     flights,
+    startCity,
+    endCity,
     limit,
     page,
     length,
@@ -36,6 +38,8 @@ const App = () => {
               limit={limit}
               page={page}
               length={length}
+              startCity={startCity}
+              endCity={endCity}
               setEndCity={setEndCity}
               setStartCity={setStartCity}
               handleSetPage={handleSetPage}
