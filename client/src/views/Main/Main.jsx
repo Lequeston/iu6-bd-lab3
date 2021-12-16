@@ -7,6 +7,7 @@ import PassengerSelect from '../../components/PassengerSelect';
 import FlightList from '../../components/FlightList';
 
 import './Main.css';
+import useFetchFlightsApi from '../../hooks/useFetchFlightsApi';
 
 const {Content } = Layout;
 
@@ -15,26 +16,27 @@ const flightClassList = [
   {key: 2, name:'Бизнес класс'},
   {key: 3, name:'Премиумный экономный класс'},
   {key: 4, name:'Экономный класс'}
-
 ];
 
 const Main = ({
-  cities,
-  flights,
-  startCity,
-  endCity,
-  limit,
-  page,
-  length,
-  setEndCity,
-  setStartCity,
-  handleSetPage
 }) => {
   const [departureCity, setDepartureCity] = useState();
   const [arrivalCity, setArrivalCity] = useState();
-  const [dateRange, setDateRange] = useState();
   const [flightClass, setFlightClass] = useState();
   const [passengerAmount, setPassengerAmount] = useState();
+
+  const {
+    cities,
+    flights,
+    startCity,
+    endCity,
+    limit,
+    page,
+    length,
+    setEndCity,
+    setStartCity,
+    handleSetPage
+  } = useFetchFlightsApi();
 
   const fetchAPI = () => {
     setStartCity(departureCity);

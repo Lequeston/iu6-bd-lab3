@@ -2,8 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
 import dayjs from 'dayjs';
+import apiService from '../service/api.service';
 
-const useFetchApi = () => {
+const useFetchFlightsApi = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const limit = 10;
   const location = useLocation();
@@ -13,7 +14,6 @@ const useFetchApi = () => {
   const [cities, setCities] = useState([]);
   const [flights, setFlights] = useState(undefined);
   const [clientToken, setClientToken] = useState();
-  const [clientOrders, setClientOrders] = useState();
 
   const [loginCredentials, setLoginCredentials] = useState();
   const [startCity, setStartCity] = useState(searchParams.get('startPoint'));
@@ -25,7 +25,7 @@ const useFetchApi = () => {
   useEffect(() => {
     const getCities = async () => {
       try {
-        const res = await fetch(`${API_URL}/city`);
+        const res = await apiService.get('/city');
         const body = await res.json();
         const result = body['res'];
         const cities = result.map(value => ({
@@ -42,9 +42,8 @@ const useFetchApi = () => {
   }, [API_URL]);
 
   useEffect(() => {
-    const createURL = () => {
-      console.log(searchParams);
-      const url = new URL(`${API_URL}/flight/decoration`);
+    const createSearchParams = () => {
+      const searchParams = new URLSearchParams();
       const array = [
         {
           key: 'startPoint',
@@ -65,14 +64,14 @@ const useFetchApi = () => {
       ];
       array
         .filter(value => value)
-        .forEach(({key, value}) => value && url.searchParams.append(key, value));
-      navigate(`${location.pathname}?${url.searchParams}`)
-      return url;
+        .forEach(({key, value}) => value && searchParams.append(key, value));
+      navigate(`${location.pathname}?${searchParams}`)
+      return searchParams;
     }
 
     const getFlights = async() => {
       try {
-        const res = await fetch(createURL());
+        const res = await apiService.get(`/flight/decoration?${createSearchParams()}`);
         const body = await res.json();
         const array = body['res']['array'];
         const length = body['res']['length'];
@@ -117,20 +116,6 @@ const useFetchApi = () => {
     setClientToken(1);
   }, [loginCredentials]);
 
-  useEffect(() => {
-    const getOrders = async () => {
-      const res = await fetch(`${API_URL}/order`, {
-        headers: {
-          authorization: 1
-        }
-      }); 
-      const body = await res.json();
-      const orders = body['res']['array'];
-      setClientOrders(orders)
-    }
-    getOrders()
-  }, [clientToken, setClientOrders, API_URL]);
-
   const handleSetPage = useCallback(
     (page) => {
       setPage(lastPage => (page < 1 || page > maxPage) ? lastPage : page);
@@ -148,7 +133,6 @@ const useFetchApi = () => {
     length,
     maxPage,
     clientToken,
-    clientOrders,
     setPage,
     setStartCity,
     setEndCity,
@@ -157,4 +141,4 @@ const useFetchApi = () => {
   }
 }
 
-export default useFetchApi;
+export default useFetchFlightsApi;
