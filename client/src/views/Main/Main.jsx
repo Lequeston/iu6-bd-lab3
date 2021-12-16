@@ -35,6 +35,7 @@ const Main = ({
     length,
     setEndCity,
     setStartCity,
+    setAddFlightId,
     handleSetPage
   } = useFetchFlightsApi();
 
@@ -97,6 +98,7 @@ const Main = ({
               setPage={handleSetPage}
               limit={limit}
               page={page}
+              setAddFlightId={setAddFlightId}
             />
           </div>
         </div>

@@ -16,11 +16,11 @@ class OrderController implements OrderControllerInterface {
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const clientId: string | undefined = req.body.clientId as string;
+      const id: string | undefined = req.headers.authorization;
       const flightId: string | undefined = req.body.flightId as string;
       const priceId: string | undefined = req.body.priceId as string;
 
-      const order = await orderService.addOrder(clientId, flightId, priceId);
+      const order = await orderService.addOrder(id, flightId, priceId);
       return res.json({
         res: order
       }).status(200);

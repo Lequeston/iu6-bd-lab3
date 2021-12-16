@@ -1,11 +1,12 @@
 import React from 'react';
-import { List, Row, Col, Typography, Image, Empty } from 'antd';
+import { List, Row, Col, Typography, Image, Empty, Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import './FlightList.css';
 
 const { Text } = Typography;
 
-const FlightList = ({ data, length, setPage, limit, page }) => {
+const FlightList = ({ data, length, setPage, limit, page, setAddFlightId }) => {
   const printTime = (hour, minute) => {
     if (minute === '0')
       return `${hour} ч.`;
@@ -60,6 +61,9 @@ const FlightList = ({ data, length, setPage, limit, page }) => {
                 {/*<Col span={6}><Text type="secondary">{item.transfer ? printTime(...convertHours(item.transferTime)) : ''}</Text></Col>*/}
                 {/*<Col span={6}><Text type="secondary">{item.roundtrip ? 'Туда и обратно' : 'Туда'}</Text></Col>*/}
               </Row>
+            </Col>
+            <Col>
+              <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => setAddFlightId(item.id)}/>
             </Col>
           </Row>
         </List.Item>

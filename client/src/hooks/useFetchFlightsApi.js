@@ -22,6 +22,25 @@ const useFetchFlightsApi = () => {
   const [maxPage, setMaxPage] = useState(1);
   const [length, setLength] = useState(0);
 
+  const [addFlightId, setAddFlightId] = useState(undefined);
+
+  useEffect(() => {
+    try {
+      const addFlight = async(flight) => {
+        const req = await apiService.post('/order', {
+          flightId: flight.id,
+          priceId: flight.price.id
+        });
+      }
+      if (addFlightId && flights) {
+        const flight = flights.find(flight => addFlightId === flight.id);
+        addFlight(flight);
+      }
+    } catch(e) {
+      console.error(e);
+    }
+  }, [addFlightId, flights]);
+
   useEffect(() => {
     const getCities = async () => {
       try {
@@ -108,8 +127,10 @@ const useFetchFlightsApi = () => {
         console.error(e);
       }
     }
-    getFlights();
-  }, [startCity, endCity, API_URL, page]);
+    if (!addFlightId) {
+      getFlights();
+    }
+  }, [startCity, endCity, API_URL, page, addFlightId]);
 
   useEffect(() => {
     // Очень умная и продвинутая авторизация
@@ -133,6 +154,7 @@ const useFetchFlightsApi = () => {
     length,
     maxPage,
     clientToken,
+    setAddFlightId,
     setPage,
     setStartCity,
     setEndCity,
