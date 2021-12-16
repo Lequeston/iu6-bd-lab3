@@ -3,10 +3,15 @@ import { Layout, List, Row, Col, Typography, Image, Empty } from 'antd';
 import dayjs from 'dayjs';
 
 import './OrderList.css'
+import useFetchOrdersApi from '../../hooks/useFetchOrdersApi';
 
 const { Content } = Layout;
 
-const OrderList = ({ clientOrders }) => {
+const OrderList = () => {
+  const {
+    orders: clientOrders
+  } = useFetchOrdersApi();
+
   const printTime = (hour, minute) => {
     if (minute === '0')
       return `${hour} ч.`;
