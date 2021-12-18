@@ -7,7 +7,6 @@ const router = Router();
 
 router.post(
   '/',
-  body('clientId').not().isEmpty(),
   body('flightId').not().isEmpty(),
   body('priceId').not().isEmpty(),
   orderController.addOrder
