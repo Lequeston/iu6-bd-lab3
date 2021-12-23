@@ -118,7 +118,8 @@ const useFetchFlightsApi = () => {
           comfortClass: {
             id: value['comfortClass']['id'],
             title: value['comfortClass']['title']
-          }
+          },
+          airline: value['airlineTitle']
         }));
         setLength(length);
         setMaxPage(maxPage);
