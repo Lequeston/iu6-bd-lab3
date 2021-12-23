@@ -39,11 +39,6 @@ const Main = ({
     handleSetPage
   } = useFetchFlightsApi();
 
-  const fetchAPI = () => {
-    setStartCity(departureCity);
-    setEndCity(arrivalCity);
-  };
-
   return (
       <Content style={{ padding: '0 50px' }}>
         <div style={{ maxWidth: '950px', margin: 'auto'}}>
@@ -71,23 +66,12 @@ const Main = ({
                   onChange={setEndCity}
                 />
               </Col>
-              <Col span={4}>
+              <Col span={7}>
                 <PassengerSelect
                   flightClassList={flightClassList}
                   onFlightClassChange={setFlightClass}
                   onPassengerAmountChange={setPassengerAmount}
                 />
-              </Col>
-              <Col span={3}>
-                <Button
-                  type="primary"
-                  icon={<SearchOutlined />}
-                  size="large"
-                  style={{ width: '100%' }}
-                  onClick={fetchAPI}
-                >
-                  Найти
-                </Button>
               </Col>
             </Row>
           </div>
