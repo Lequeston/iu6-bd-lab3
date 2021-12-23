@@ -11,7 +11,6 @@ const useFetchFlightsApi = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [cities, setCities] = useState([]);
   const [flights, setFlights] = useState(undefined);
   const [clientToken, setClientToken] = useState();
 
@@ -41,25 +40,6 @@ const useFetchFlightsApi = () => {
       console.error(e);
     }
   }, [addFlightId, flights]);
-
-  useEffect(() => {
-    const getCities = async () => {
-      try {
-        const res = await apiService.get('/city');
-        const body = await res.json();
-        const result = body['res'];
-        const cities = result.map(value => ({
-          id: value['id'],
-          title: value['title'],
-          country: value['country']
-        }));
-        setCities(cities);
-      } catch(e) {
-        console.error(e);
-      }
-    }
-    getCities();
-  }, [API_URL]);
 
   useEffect(() => {
     const createSearchParams = () => {
@@ -151,7 +131,6 @@ const useFetchFlightsApi = () => {
   );
 
   return {
-    cities,
     startCity,
     endCity,
     flights,

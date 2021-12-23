@@ -7,6 +7,7 @@ import FlightList from '../../components/FlightList';
 
 import './Main.css';
 import useFetchFlightsApi from '../../hooks/useFetchFlightsApi';
+import useFetchCities from '../../hooks/useFetchCities';
 
 const {Content } = Layout;
 
@@ -25,10 +26,7 @@ const Main = ({
   const [passengerAmount, setPassengerAmount] = useState();
 
   const {
-    cities,
     flights,
-    startCity,
-    endCity,
     limit,
     page,
     length,
@@ -38,6 +36,8 @@ const Main = ({
     setAddFlightId,
     handleSetPage
   } = useFetchFlightsApi();
+
+  const { cities } = useFetchCities();
 
   const onDatesChange = (dates) => {
     if (dates) {
@@ -55,7 +55,6 @@ const Main = ({
                   placeholder="Откуда"
                   data={cities}
                   onChange={setStartCity}
-                  value={startCity}
                 />
               </Col>
               <Col span={5}>
@@ -63,7 +62,6 @@ const Main = ({
                   placeholder="Куда"
                   data={cities}
                   onChange={setEndCity}
-                  value={endCity}
                 />
               </Col>
               <Col span={7}>
