@@ -12,9 +12,6 @@ const useFetchFlightsApi = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [flights, setFlights] = useState(undefined);
-  const [clientToken, setClientToken] = useState();
-
-  const [loginCredentials, setLoginCredentials] = useState();
   const [startCity, setStartCity] = useState(searchParams.get('startPoint'));
   const [endCity, setEndCity] = useState(searchParams.get('endPoint'));
   const [date, setDate] = useState();
@@ -118,11 +115,6 @@ const useFetchFlightsApi = () => {
     }
   }, [startCity, endCity, date, API_URL, page, addFlightId]);
 
-  useEffect(() => {
-    // Очень умная и продвинутая авторизация
-    setClientToken(1);
-  }, [loginCredentials]);
-
   const handleSetPage = useCallback(
     (page) => {
       setPage(lastPage => (page < 1 || page > maxPage) ? lastPage : page);
@@ -138,13 +130,11 @@ const useFetchFlightsApi = () => {
     page,
     length,
     maxPage,
-    clientToken,
     setAddFlightId,
     setPage,
     setStartCity,
     setEndCity,
     setDate,
-    setLoginCredentials,
     handleSetPage
   }
 }
