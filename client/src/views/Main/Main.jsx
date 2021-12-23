@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col } from 'antd';
 import CitySelect from '../../components/CitySelect';
 import DatePicker from '../../components/DatePicker';
@@ -15,7 +15,6 @@ const {Content } = Layout;
 
 const Main = ({
 }) => {
-  const [flightClass, setFlightClass] = useState();
   const [passengerAmount, setPassengerAmount] = useState();
 
   const {
@@ -27,6 +26,7 @@ const Main = ({
     setStartCity,
     setDate,
     setAddFlightId,
+    setFlightClass,
     handleSetPage
   } = useFetchFlightsApi();
 

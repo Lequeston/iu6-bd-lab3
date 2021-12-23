@@ -12,6 +12,7 @@ const useFetchFlightsApi = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [flights, setFlights] = useState(undefined);
+  const [flightClass, setFlightClass] = useState();
   const [startCity, setStartCity] = useState(searchParams.get('startPoint'));
   const [endCity, setEndCity] = useState(searchParams.get('endPoint'));
   const [date, setDate] = useState();
@@ -61,6 +62,10 @@ const useFetchFlightsApi = () => {
         {
           key: 'date',
           value: date
+        },
+        {
+          key: 'comfortClass',
+          value: flightClass
         }
       ];
       array
@@ -113,7 +118,7 @@ const useFetchFlightsApi = () => {
     if (!addFlightId) {
       getFlights();
     }
-  }, [startCity, endCity, date, API_URL, page, addFlightId]);
+  }, [startCity, endCity, date, flightClass, API_URL, page, addFlightId]);
 
   const handleSetPage = useCallback(
     (page) => {
@@ -135,6 +140,7 @@ const useFetchFlightsApi = () => {
     setStartCity,
     setEndCity,
     setDate,
+    setFlightClass,
     handleSetPage
   }
 }
