@@ -160,7 +160,7 @@ const Main = ({
               </Col>
               <Col span={5}>
                 <CitySelect
-                  placeholderhandleSetPage="Куда"
+                  placeholder="Куда"
                   data={cities}
                   onChange={setArrivalCity}
                 />
