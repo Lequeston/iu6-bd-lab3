@@ -65,6 +65,10 @@ const Main = ({
         setRoundtrip(false);
         setDirDate(dates[0]);
       }
+    } else {
+      setRoundtrip(false);
+      setDirDate(null);
+      setRetDate(null);
     }
   }, [dates]);
 
@@ -119,7 +123,26 @@ const Main = ({
         </div>
       </div>
     ) : (
-      <div></div>
+      <div
+        style={{
+          margin: 'auto',
+          maxWidth: '950px'
+        }}
+      >
+        <div
+          className="site-layout-content"
+          style={{ minHeight: 'calc(100vh - 64px - 70px - 104px - 50px)' }}
+        >
+          <FlightList
+            data={dirFlights}
+            length={dirLength}
+            setPage={setDirHandleSetPage}
+            limit={dirLimit}
+            page={dirPage}
+            setAddFlightId={setDirAddFlightId}
+          />
+        </div>
+      </div>
     )
   }
 
