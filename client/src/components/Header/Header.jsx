@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import {Typography, Image, Layout, Row, Col, Menu } from "antd";
+import {Typography, Image, Layout, Row, Col } from "antd";
 
 import LoginForm from '../../components/LoginForm';
 
 import './Header.css';
-import { MenuItem } from "rc-menu";
 
 const { Header: AntHeader } = Layout;
 const { Title } = Typography;

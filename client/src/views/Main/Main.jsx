@@ -14,8 +14,8 @@ import './Main.css';
 const { Content } = Layout;
 const { Text } = Typography;
 
-const Main = ({
-}) => {
+const Main = () => {
+  // eslint-disable-next-line
   const [passengerAmount, setPassengerAmount] = useState();
   const [flightClass, setFlightClass] = useState()
   const [roundtrip, setRoundtrip] = useState(false);
@@ -70,26 +70,30 @@ const Main = ({
       setDirDate(null);
       setRetDate(null);
     }
-  }, [dates]);
+  }, [dates, setRoundtrip, setDirDate, setRetDate]);
 
   useEffect(() => {
     setDirStartCity(departureCity);
     setRetEndCity(departureCity);
-  }, [departureCity]);
+  }, [departureCity, setDirStartCity, setRetEndCity]);
 
   useEffect(() => {
     setDirEndCity(arrivalCity);
     setRetStartCity(arrivalCity);
-  }, [arrivalCity]);
+  }, [arrivalCity, setDirEndCity, setRetStartCity]);
 
   useEffect(() => {
     setDirFlightClass(flightClass);
     setRetFlightClass(flightClass)
-  }, [flightClass])
+  }, [flightClass, setDirFlightClass, setRetFlightClass])
 
   const flightList = () => {
     return roundtrip ? (
-      <div style={{ margin: 'auto' }}>
+      <div 
+      style={{ 
+        margin: 'auto',
+        maxWidth: '1900px'
+      }}>
         <div 
           style={{ minHeight: 'calc(100vh - 64px - 70px - 104px - 50px)' }}
           className="site-layout-content"
