@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
+import { message } from 'antd';
 
 import dayjs from 'dayjs';
 import apiService from '../service/api.service';
@@ -33,6 +34,7 @@ const useFetchFlightsApi = () => {
       if (addFlightId && flights) {
         const flight = flights.find(flight => addFlightId === flight.id);
         addFlight(flight);
+        message.success('Рейс добавлен в список!')
       }
     } catch(e) {
       console.error(e);
