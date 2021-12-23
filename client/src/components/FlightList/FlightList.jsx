@@ -62,7 +62,12 @@ const FlightList = ({ data, length, setPage, limit, page, setAddFlightId }) => {
               </Row>
             </Col>
             <Col>
-              <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => setAddFlightId(item.id)}/>
+              <Button
+                type="primary"
+                shape="circle"
+                icon={<PlusOutlined />}
+                onClick={() => { setAddFlightId(item.id); }}
+              />
             </Col>
           </Row>
         </List.Item>
