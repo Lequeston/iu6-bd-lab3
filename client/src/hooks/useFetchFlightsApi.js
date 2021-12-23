@@ -18,6 +18,7 @@ const useFetchFlightsApi = () => {
   const [loginCredentials, setLoginCredentials] = useState();
   const [startCity, setStartCity] = useState(searchParams.get('startPoint'));
   const [endCity, setEndCity] = useState(searchParams.get('endPoint'));
+  const [date, setDate] = useState();
   const [page, setPage] = useState(parseInt(searchParams.get('page'), 10) || 1);
   const [maxPage, setMaxPage] = useState(1);
   const [length, setLength] = useState(0);
@@ -79,6 +80,10 @@ const useFetchFlightsApi = () => {
         {
           key: 'limit',
           value: limit
+        },
+        {
+          key: 'date',
+          value: date
         }
       ];
       array
@@ -131,7 +136,7 @@ const useFetchFlightsApi = () => {
     if (!addFlightId) {
       getFlights();
     }
-  }, [startCity, endCity, API_URL, page, addFlightId]);
+  }, [startCity, endCity, date, API_URL, page, addFlightId]);
 
   useEffect(() => {
     // Очень умная и продвинутая авторизация
@@ -159,6 +164,7 @@ const useFetchFlightsApi = () => {
     setPage,
     setStartCity,
     setEndCity,
+    setDate,
     setLoginCredentials,
     handleSetPage
   }

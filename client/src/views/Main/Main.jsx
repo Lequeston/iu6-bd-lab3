@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Row, Col, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Layout, Row, Col } from 'antd';
 import CitySelect from '../../components/CitySelect';
 import DatePicker from '../../components/DatePicker';
 import PassengerSelect from '../../components/PassengerSelect';
@@ -35,9 +34,16 @@ const Main = ({
     length,
     setEndCity,
     setStartCity,
+    setDate,
     setAddFlightId,
     handleSetPage
   } = useFetchFlightsApi();
+
+  const onDatesChange = (dates) => {
+    if (dates) {
+      setDate(dates[0])
+    }
+  };
 
   return (
       <Content style={{ padding: '0 50px' }}>
@@ -63,7 +69,7 @@ const Main = ({
               <Col span={7}>
                 <DatePicker
                   placeholder={['Туда', 'Обратно']}
-                  onChange={setEndCity}
+                  onChange={onDatesChange}
                 />
               </Col>
               <Col span={7}>
