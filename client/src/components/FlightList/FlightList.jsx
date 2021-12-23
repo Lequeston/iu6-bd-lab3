@@ -10,6 +10,8 @@ const FlightList = ({ data, length, setPage, limit, page, setAddFlightId }) => {
   const printTime = (hour, minute) => {
     if (minute === '0')
       return `${hour} ч.`;
+    if (hour === '0')
+      return `${minute} мин.`
     return `${hour} ч. ${minute} мин.`;
   };
 
