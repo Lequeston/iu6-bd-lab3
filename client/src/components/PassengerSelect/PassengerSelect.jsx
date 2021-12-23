@@ -11,10 +11,6 @@ const PassengerSelect = ({ flightClassList, onFlightClassChange, onPassengerAmou
   const [passengerAmount, setPassengerAmount] = useState(0);
 
   useEffect(() => {
-    console.log(flightClassList);
-  })
-
-  useEffect(() => {
     onFlightClassChange(flightClass);
   }, [flightClass, onFlightClassChange]);
 
@@ -22,7 +18,7 @@ const PassengerSelect = ({ flightClassList, onFlightClassChange, onPassengerAmou
     onPassengerAmountChange(passengerAmount);
   }, [passengerAmount, onPassengerAmountChange]);
 
-  return (
+  return flightClassList ? (
     <Select
       value={`${passengerAmount}, ${flightClassList[flightClass - 1].name}`}
       style={{ width: '100%' }}
@@ -70,7 +66,7 @@ const PassengerSelect = ({ flightClassList, onFlightClassChange, onPassengerAmou
         )
       }}
     />
-  );
+  ) : null;
 };
 
 export default PassengerSelect;
