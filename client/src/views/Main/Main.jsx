@@ -5,23 +5,16 @@ import DatePicker from '../../components/DatePicker';
 import PassengerSelect from '../../components/PassengerSelect';
 import FlightList from '../../components/FlightList';
 
-import './Main.css';
 import useFetchFlightsApi from '../../hooks/useFetchFlightsApi';
 import useFetchCities from '../../hooks/useFetchCities';
+import useFetchFlightClassList from '../../hooks/useFetchFlightClassList';
+
+import './Main.css';
 
 const {Content } = Layout;
 
-const flightClassList = [
-  {key: 1, name:'Первый класс'},
-  {key: 2, name:'Бизнес класс'},
-  {key: 3, name:'Премиумный экономный класс'},
-  {key: 4, name:'Экономный класс'}
-];
-
 const Main = ({
 }) => {
-  const [departureCity, setDepartureCity] = useState();
-  const [arrivalCity, setArrivalCity] = useState();
   const [flightClass, setFlightClass] = useState();
   const [passengerAmount, setPassengerAmount] = useState();
 
@@ -38,6 +31,8 @@ const Main = ({
   } = useFetchFlightsApi();
 
   const { cities } = useFetchCities();
+
+  const { flightClassList } = useFetchFlightClassList();
 
   const onDatesChange = (dates) => {
     if (dates) {
