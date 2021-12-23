@@ -1,9 +1,11 @@
 import React from "react";
-import {Typography, Image, Layout, Row, Col } from "antd";
+import { Link } from 'react-router-dom';
+import {Typography, Image, Layout, Row, Col, Menu } from "antd";
 
 import LoginForm from '../../components/LoginForm';
 
 import './Header.css';
+import { MenuItem } from "rc-menu";
 
 const { Header: AntHeader } = Layout;
 const { Title } = Typography;
@@ -41,6 +43,13 @@ const Header = ({ onLoginFinish }) => {
           >
             Авиабилеты
           </Title>
+          <Menu 
+            mode="horizontal"
+            selectable={false}
+          >
+            <Link to="/"><Menu.Item>Билеты</Menu.Item></Link>
+            <Link to="/orders"><Menu.Item>Заказы</Menu.Item></Link>
+          </Menu>
         </Col>
         <Col style={{
           display: 'flex',
