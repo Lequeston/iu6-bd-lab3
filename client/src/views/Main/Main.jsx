@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Card, Typography } from 'antd';
 import CitySelect from '../../components/CitySelect';
 import DatePicker from '../../components/DatePicker';
 import PassengerSelect from '../../components/PassengerSelect';
@@ -11,7 +11,8 @@ import useFetchFlightClassList from '../../hooks/useFetchFlightClassList';
 
 import './Main.css';
 
-const {Content } = Layout;
+const { Content } = Layout;
+const { Text } = Typography;
 
 const Main = ({
 }) => {
@@ -60,6 +61,7 @@ const Main = ({
         setRetDate(dates[1]);
       }
       else {
+        console.log(dates[0]);
         setRoundtrip(false);
         setDirDate(dates[0]);
       }
@@ -80,6 +82,46 @@ const Main = ({
     setDirFlightClass(flightClass);
     setRetFlightClass(flightClass)
   }, [flightClass])
+
+  const flightList = () => {
+    return roundtrip ? (
+      <div style={{ margin: 'auto' }}>
+        <div 
+          style={{ minHeight: 'calc(100vh - 64px - 70px - 104px - 50px)' }}
+          className="site-layout-content"
+        >
+          <Row gutter={[16, 0]}>
+            <Col span={12}>
+              <Card title={<Text style={{ fontSize: '30px' }} strong>Туда</Text>}>
+                <FlightList
+                  data={dirFlights}
+                  length={dirLength}
+                  setPage={setDirHandleSetPage}
+                  limit={dirLimit}
+                  page={dirPage}
+                  setAddFlightId={setDirAddFlightId}
+                />
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card title={<Text style={{ fontSize: '30px' }} strong>Обратно</Text>}>
+                <FlightList
+                  data={retFlights}
+                  length={retLength}
+                  setPage={setRetHandleSetPage}
+                  limit={retLimit}
+                  page={retPage}
+                  setAddFlightId={setRetAddFlightId}
+                />
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    ) : (
+      <div></div>
+    )
+  }
 
   return (
       <Content style={{ padding: '0 50px' }}>
@@ -115,31 +157,8 @@ const Main = ({
               </Col>
             </Row>
           </div>
-          <div style={{ minHeight: 'calc(100vh - 64px - 70px - 104px - 50px)' }} className="site-layout-content">
-            <Row>
-              <Col>
-                <FlightList
-                  data={dirFlights}
-                  length={dirLength}
-                  setPage={setDirHandleSetPage}
-                  limit={dirLimit}
-                  page={dirPage}
-                  setAddFlightId={setDirAddFlightId}
-                />
-              </Col>
-              <Col>
-                <FlightList
-                  data={retFlights}
-                  length={retLength}
-                  setPage={setRetHandleSetPage}
-                  limit={retLimit}
-                  page={retPage}
-                  setAddFlightId={setRetAddFlightId}
-                />
-              </Col>
-            </Row>
-          </div>
         </div>
+        { flightList() }
       </Content>
   );
 }
