@@ -58,9 +58,9 @@ cd server
 ```text
 PORT=5000
 
-DB_USER=db_user
-DB_DATABASE=db_database
-DB_PASSWORD=db_password
+DB_USER=postgres
+DB_DATABASE=lab2_database
+DB_PASSWORD=qwerty123
 DB_PORT=5432
 DB_HOST=localhost
 ```
@@ -97,7 +97,7 @@ cd client
 - REACT_APP_API_URL - url для обращения к api
 
 ```text
-REACT_APP_API_URL=http://localhost:3000/api
+REACT_APP_API_URL=http://localhost:5000/api
 ```
 
 3. Устанавливаем зависимости

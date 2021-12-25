@@ -43,9 +43,9 @@
 ```text
 PORT=5000
 
-DB_USER=db_user
-DB_DATABASE=db_database
-DB_PASSWORD=db_password
+DB_USER=postgres
+DB_DATABASE=lab2_database
+DB_PASSWORD=qwerty123
 DB_PORT=5432
 DB_HOST=localhost
 ```
